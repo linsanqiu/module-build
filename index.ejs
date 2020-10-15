@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>HUI统一基础框架</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <% for (let i of htmlWebpackPlugin.options.dll) { %>
+      <script src="<%= i %>"></script>
+    <% } %>
+    <script>
+    </script>
+  </body>
+</html>

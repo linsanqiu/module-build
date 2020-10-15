@@ -1,10 +1,10 @@
 <style>
-	@import "./../assets/css/zTreeStyle.css";
+	/*@import "./../assets/css/zTreeStyle.css";*/
 	.loadSyncNode {
 		width: 16px;
-        height: 16px;
-        position: relative;
-        display: inline-block;
+    height: 16px;
+    position: relative;
+    display: inline-block;
 		background-image:url("data:image/gif;base64,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")
 	}
 </style>
@@ -69,20 +69,20 @@ export default{
 	methods:{
         initTreeData(){
             var tempList = JSON.parse(JSON.stringify(this.list));
-            
+
             // 递归操作，增加删除一些属性。比如: 展开/收起
             var recurrenceFunc = (data) => {
                 data.forEach((m)=>{
                     m.clickNode = m.hasOwnProperty("clickNode") ? m.clickNode : false;
                     m.children = m.children || [];
 
-                   
+
 	               	m.isFolder =  m.hasOwnProperty("open") ? m.open : this.isOpen;
 	               	m.isExpand =  m.hasOwnProperty("open") ? m.open : this.isOpen;
-	               	m.loadNode = 0; 
+	               	m.loadNode = 0;
 	               	recurrenceFunc(m.children);
-    
-                    
+
+
                 })
             };
 
@@ -154,7 +154,7 @@ export default{
                 open(m){
                 	//
                 	m.isExpand = !m.isExpand;
-           
+
                 	if(typeof this.expandfunc == "function" && m.isExpand) {
                 		if(m.loadNode!=2) {
 		                	//
@@ -171,19 +171,19 @@ export default{
         		// 给（根 和 子树）赋值不同的样式
                 rootClass(){
                 	 var strRootClass = '';
-                     
+
                      // 根判断
                 	 if(this.root=='0'){
 
-                       strRootClass =  (this.num==0 && this.model.children.length==0) ? "roots_docu" : (this.nodes==1) || (this.num==0 && this.nodes!=this.num+1) ? 
+                       strRootClass =  (this.num==0 && this.model.children.length==0) ? "roots_docu" : (this.nodes==1) || (this.num==0 && this.nodes!=this.num+1) ?
                          "root_" : (this.nodes == this.num+1) ? "bottom_" : "center_";
-                     
+
                      // 子树判断
                 	 }else if(this.root=='1') {
 
                         strRootClass =  this.nodes>1 && this.model.children.length>0 && this.nodes!=this.num+1
-                         ? "center_" : 
-                            (this.num == 0 && this.nodes>1) || (this.nodes!=this.num+1) ? "center_docu" : 
+                         ? "center_" :
+                            (this.num == 0 && this.nodes>1) || (this.nodes!=this.num+1) ? "center_docu" :
                                  this.nodes == 1&&this.num!=0 || (this.nodes==this.num+1 && this.model.children.length>0)   ? "bottom_" : "bottom_docu";
                 	 }
 
@@ -207,7 +207,7 @@ export default{
 	                if(this.model.children.length==0 && this.rootClass.indexOf("docu")==-1){
                         returnChar = 'docu'
 	                }
-	                
+
 	                return returnChar;
                 },
                 liClassVal(){
@@ -223,7 +223,7 @@ export default{
                 	return this.isChildren && this.model.children.length>0 ?"level"+this.num+' line':"level"+this.num;
                 }
         	},
-            template: 
+            template:
             `<li :class="liClassVal">
 				<span :class="spanClassVal" @click='open(model)'></span>
 				<a :class="aClassVal" @click='Func(model)' @contextmenu.prevent='cxtmenufunc'>

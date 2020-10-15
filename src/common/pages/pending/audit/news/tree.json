@@ -1,0 +1,2509 @@
+{
+    "status": 1,
+    "msg": "success",
+    "body": {
+        "expand": true,
+        "children": [
+            {
+                "expand": false,
+                "children": [
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101101101",
+                                        "title": "企业通用服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101101102101",
+                                                "title": "大数据行业应用行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101101102102",
+                                                "title": "大数据平台行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101101102103",
+                                                "title": "大数据技术行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101101102104",
+                                                "title": "大数据通用应用行业"
+                                            }
+                                        ],
+                                        "id": "101101101101102",
+                                        "title": "大数据行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+                                                    {
+                                                        "expand": false,
+                                                        "children": [
+
+                                                        ],
+                                                        "id": "101101101101103101101",
+                                                        "title": "行业垂直型SaaS行业"
+                                                    },
+                                                    {
+                                                        "expand": false,
+                                                        "children": [
+
+                                                        ],
+                                                        "id": "101101101101103101102",
+                                                        "title": "通用型SaaS行业"
+                                                    }
+                                                ],
+                                                "id": "101101101101103101",
+                                                "title": "SaaS行业"
+                                            }
+                                        ],
+                                        "id": "101101101101103",
+                                        "title": "云计算行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101101104",
+                                        "title": "创业服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101101105",
+                                        "title": "垂直行业信息化行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101101106",
+                                        "title": "销售与营销行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101101107",
+                                        "title": "开发者服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101101108",
+                                        "title": "信息安全行业"
+                                    }
+                                ],
+                                "id": "101101101101",
+                                "title": "企业服务行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101102101101",
+                                                "title": "生物识别行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101102101102",
+                                                "title": "计算机视觉与图像行业"
+                                            }
+                                        ],
+                                        "id": "101101101102101",
+                                        "title": "人工智能技术层行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101102102",
+                                        "title": "人工智能通用应用层行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101102103",
+                                        "title": "人工智能行业应用层行业"
+                                    }
+                                ],
+                                "id": "101101101102",
+                                "title": "人工智能行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101103101",
+                                        "title": "交通出行行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101103102",
+                                        "title": "车主服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101103103",
+                                        "title": "汽车制造行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101103104",
+                                        "title": "汽车科技行业"
+                                    }
+                                ],
+                                "id": "101101101103",
+                                "title": "汽车交通行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101104101",
+                                        "title": "广告平台行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101104102",
+                                        "title": "广告技术行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101104103",
+                                        "title": "数字营销行业"
+                                    }
+                                ],
+                                "id": "101101101104",
+                                "title": "广告营销行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101105101",
+                                        "title": "图片/音视频行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101105102",
+                                        "title": "安全隐私行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101105103101",
+                                                "title": "电话通讯行业"
+                                            }
+                                        ],
+                                        "id": "101101101105103",
+                                        "title": "日常应用行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101105104",
+                                        "title": "系统工具行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101105105",
+                                        "title": "个人办公工具行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101105106",
+                                        "title": "其他工具行业"
+                                    }
+                                ],
+                                "id": "101101101105",
+                                "title": "工具软件行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101106101101",
+                                                "title": "游戏周边服务行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101106101102",
+                                                "title": "游戏硬件行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101106101103",
+                                                "title": "游戏开发商行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101106101104",
+                                                "title": "游戏发行及渠道行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101106101105",
+                                                "title": "电子竞技行业"
+                                            }
+                                        ],
+                                        "id": "101101101106101",
+                                        "title": "游戏与电竞行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101106102",
+                                        "title": "媒体行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101106103",
+                                        "title": "演出/演艺行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101106104",
+                                        "title": "直播行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101106105",
+                                        "title": "艺术行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101106106",
+                                        "title": "视频行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101106107101",
+                                                "title": "网络文学行业"
+                                            }
+                                        ],
+                                        "id": "101101101106107",
+                                        "title": "阅读与出版行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101106108",
+                                        "title": "动漫行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101106109101",
+                                                "title": "音频内容行业"
+                                            }
+                                        ],
+                                        "id": "101101101106109",
+                                        "title": "音乐行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101106110101",
+                                                "title": "电影行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101106110102",
+                                                "title": "电视剧行业"
+                                            }
+                                        ],
+                                        "id": "101101101106110",
+                                        "title": "影视行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101106111",
+                                        "title": "艺人网红行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101106112",
+                                        "title": "其他文娱服务行业"
+                                    }
+                                ],
+                                "id": "101101101106",
+                                "title": "文化娱乐行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101107101",
+                                        "title": "医疗信息化行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101107102",
+                                        "title": "患者服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101107103",
+                                        "title": "医疗金融服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101107104",
+                                        "title": "其他医疗服务行业"
+                                    }
+                                ],
+                                "id": "101101101107",
+                                "title": "医疗行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101108101",
+                                        "title": "VR/AR行业应用行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101108102",
+                                        "title": "VR/AR产品行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101108103",
+                                        "title": "VR/AR技术行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101108104101",
+                                                "title": "VR/AR影视行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101108104102",
+                                                "title": "VR/AR游戏行业"
+                                            }
+                                        ],
+                                        "id": "101101101108104",
+                                        "title": "VR/AR内容行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101108105",
+                                        "title": "VR/AR分发平台行业"
+                                    }
+                                ],
+                                "id": "101101101108",
+                                "title": "VR/AR行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101109101",
+                                        "title": "物联网周边服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101109102",
+                                        "title": "物联网应用行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101109103",
+                                        "title": "物联网技术行业"
+                                    }
+                                ],
+                                "id": "101101101109",
+                                "title": "物联网行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101110101",
+                                        "title": "新零售行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101110102",
+                                        "title": "综合性电商行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101110103101",
+                                                "title": "B2B行业"
+                                            }
+                                        ],
+                                        "id": "101101101110103",
+                                        "title": "电商经营模式行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101110104",
+                                        "title": "垂直电商行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101110105",
+                                        "title": "电商支撑服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101110106",
+                                        "title": "跨境电商行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101110107",
+                                        "title": "零售科技行业"
+                                    }
+                                ],
+                                "id": "101101101110",
+                                "title": "电子商务行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111101101",
+                                                "title": "房产周边服务行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111101102",
+                                                "title": "房产金融行业"
+                                            }
+                                        ],
+                                        "id": "101101101111101",
+                                        "title": "房地产服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101111102",
+                                        "title": "小区服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111103101",
+                                                "title": "语言学习行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111103102",
+                                                "title": "综合教育行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111103103",
+                                                "title": "职业培训行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111103104",
+                                                "title": "教育信息化行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111103105",
+                                                "title": "K12教育行业"
+                                            }
+                                        ],
+                                        "id": "101101101111103",
+                                        "title": "教育服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111104101",
+                                                "title": "其他旅游服务行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111104102",
+                                                "title": "旅游服务行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111104103",
+                                                "title": "旅游OTA行业"
+                                            }
+                                        ],
+                                        "id": "101101101111104",
+                                        "title": "旅游行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101111105",
+                                        "title": "物品租赁行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111106101",
+                                                "title": "美食外卖行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111106102",
+                                                "title": "餐饮支撑服务行业"
+                                            }
+                                        ],
+                                        "id": "101101101111106",
+                                        "title": "互联网餐饮行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101111107101",
+                                                "title": "体育支持服务行业"
+                                            }
+                                        ],
+                                        "id": "101101101111107",
+                                        "title": "互联网体育服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101111108",
+                                        "title": "其他生活服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101111109",
+                                        "title": "商户服务及信息化行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101111110",
+                                        "title": "校园服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101111111",
+                                        "title": "家政服务行业"
+                                    }
+                                ],
+                                "id": "101101101111",
+                                "title": "生活服务行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101112101",
+                                        "title": "物流支持服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101112102",
+                                        "title": "仓储服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101112103",
+                                        "title": "物流运输行业"
+                                    }
+                                ],
+                                "id": "101101101112",
+                                "title": "物流行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101113101",
+                                        "title": "区块链应用技术行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101113102",
+                                        "title": "数字货币行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101113103",
+                                        "title": "区块链媒体及社区行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101113104",
+                                        "title": "区块链基础技术行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101113105",
+                                        "title": "区块链行业应用行业"
+                                    }
+                                ],
+                                "id": "101101101113",
+                                "title": "区块链行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101114101",
+                                        "title": "智能家居行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101114102101",
+                                                "title": "机器人媒体及社区行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101114102102",
+                                                "title": "机器人研发及生产行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101114102103",
+                                                "title": "机器人产品行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101101114102104",
+                                                "title": "机器人技术行业"
+                                            }
+                                        ],
+                                        "id": "101101101114102",
+                                        "title": "机器人行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101114103",
+                                        "title": "硬件研发及支撑服务行业"
+                                    }
+                                ],
+                                "id": "101101101114",
+                                "title": "智能硬件行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101115101",
+                                        "title": "综合金融服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101115102",
+                                        "title": "支付行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101115103",
+                                        "title": "投资理财行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101115104",
+                                        "title": "企业金融行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101115105",
+                                        "title": "Fintech金融科技行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101115106",
+                                        "title": "消费金融行业"
+                                    }
+                                ],
+                                "id": "101101101115",
+                                "title": "互联网金融行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101116101",
+                                        "title": "交友社区行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101116102",
+                                        "title": "兴趣社交行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101116103",
+                                        "title": "垂直领域社交行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101116104",
+                                        "title": "社交周边服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101116105",
+                                        "title": "社区论坛行业"
+                                    }
+                                ],
+                                "id": "101101101116",
+                                "title": "社交行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101117101",
+                                        "title": "农业科技行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101101117102",
+                                        "title": "农业电商行业"
+                                    }
+                                ],
+                                "id": "101101101117",
+                                "title": "互联网农业行业"
+                            }
+                        ],
+                        "id": "101101101",
+                        "title": "泛互联网行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101101101",
+                                                "title": "乳制品行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101101102",
+                                                "title": "酒行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101101103",
+                                                "title": "饮料行业"
+                                            }
+                                        ],
+                                        "id": "101101102101101",
+                                        "title": "饮品行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101102101",
+                                                "title": "果蔬行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101102102",
+                                                "title": "水产品行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101102103",
+                                                "title": "屠宰及肉类行业"
+                                            }
+                                        ],
+                                        "id": "101101102101102",
+                                        "title": "农副食品行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101103101",
+                                                "title": "休闲食品行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101103102",
+                                                "title": "烘焙食品行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101103103",
+                                                "title": "营养保健行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101103104",
+                                                "title": "方便食品行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101103105",
+                                                "title": "调味品行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101102101103106",
+                                                "title": "糖果行业"
+                                            }
+                                        ],
+                                        "id": "101101102101103",
+                                        "title": "食品行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101102101104",
+                                        "title": "农业行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101102101105",
+                                        "title": "烟草行业"
+                                    }
+                                ],
+                                "id": "101101102101",
+                                "title": "食品饮料与烟草行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+                                                    {
+                                                        "expand": false,
+                                                        "children": [
+
+                                                        ],
+                                                        "id": "101101102102101101101",
+                                                        "title": "护发产品行业"
+                                                    },
+                                                    {
+                                                        "expand": false,
+                                                        "children": [
+
+                                                        ],
+                                                        "id": "101101102102101101102",
+                                                        "title": "护肤产品行业"
+                                                    }
+                                                ],
+                                                "id": "101101102102101101",
+                                                "title": "洗护化妆品行业"
+                                            }
+                                        ],
+                                        "id": "101101102102101",
+                                        "title": "日常个人用品行业"
+                                    }
+                                ],
+                                "id": "101101102102",
+                                "title": "家庭与个人用品行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101102103101",
+                                        "title": "居民服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101102103102",
+                                        "title": "消费品维修行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101102103103",
+                                        "title": "其它服务行业"
+                                    }
+                                ],
+                                "id": "101101102103",
+                                "title": "日常消费服务行业"
+                            }
+                        ],
+                        "id": "101101102",
+                        "title": "日常消费品行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101103101",
+                                "title": "医药流通行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101103102",
+                                "title": "医药制造行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101103103",
+                                "title": "医疗服务行业"
+                            }
+                        ],
+                        "id": "101101103",
+                        "title": "医药医疗行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104101101101",
+                                                "title": "影音娱乐行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104101101102",
+                                                "title": "通讯设备行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104101101103",
+                                                "title": "教育类电子产品行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104101101104",
+                                                "title": "摄影摄像行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104101101105",
+                                                "title": "电子配件行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104101101106",
+                                                "title": "平板设备行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104101101107",
+                                                "title": "可穿戴设备行业"
+                                            }
+                                        ],
+                                        "id": "101101104101101",
+                                        "title": "消费类电子产品行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101104101102",
+                                        "title": "文体娱乐用品行业"
+                                    }
+                                ],
+                                "id": "101101104101",
+                                "title": "个人消闲用品行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104102101101",
+                                                "title": "运动服装行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104102101102",
+                                                "title": "套装行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+                                                    {
+                                                        "expand": false,
+                                                        "children": [
+
+                                                        ],
+                                                        "id": "101101104102101103101",
+                                                        "title": "材质类服装行业"
+                                                    }
+                                                ],
+                                                "id": "101101104102101103",
+                                                "title": "休闲服装行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104102101104",
+                                                "title": "内衣行业"
+                                            }
+                                        ],
+                                        "id": "101101104102101",
+                                        "title": "服装行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104102102101",
+                                                "title": "手表行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104102102102",
+                                                "title": "珠宝饰品行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104102102103",
+                                                "title": "箱包行业"
+                                            }
+                                        ],
+                                        "id": "101101104102102",
+                                        "title": "服饰与奢侈品行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101104102103",
+                                        "title": "鞋类行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101104102104",
+                                        "title": "纺织行业"
+                                    }
+                                ],
+                                "id": "101101104102",
+                                "title": "服装服饰与奢侈品行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104103101101",
+                                                "title": "厨卫家电行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104103101102",
+                                                "title": "白色家电行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104103101103",
+                                                "title": "小家电行业"
+                                            }
+                                        ],
+                                        "id": "101101104103101",
+                                        "title": "家电行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104103102101",
+                                                "title": "木质家具行业"
+                                            }
+                                        ],
+                                        "id": "101101104103102",
+                                        "title": "家具行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104103103101",
+                                                "title": "厨房卫浴行业"
+                                            },
+                                            {
+                                                "expand": false,
+                                                "children": [
+
+                                                ],
+                                                "id": "101101104103103102",
+                                                "title": "家装家饰行业"
+                                            }
+                                        ],
+                                        "id": "101101104103103",
+                                        "title": "家居行业"
+                                    }
+                                ],
+                                "id": "101101104103",
+                                "title": "家庭耐用消费品行业"
+                            }
+                        ],
+                        "id": "101101104",
+                        "title": "耐用消费品行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105101101",
+                                        "title": "专用机械设备行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105101102",
+                                        "title": "电气设备行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105101103",
+                                        "title": "金属制品行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105101104",
+                                        "title": "运输设备行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105101105",
+                                        "title": "设备修理行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105101106",
+                                        "title": "仪器仪表行业"
+                                    }
+                                ],
+                                "id": "101101105101",
+                                "title": "设备制造行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105102101",
+                                        "title": "科技推广与应用行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105102102",
+                                        "title": "专业技术服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105102103",
+                                        "title": "研究实验行业"
+                                    }
+                                ],
+                                "id": "101101105102",
+                                "title": "科研服务行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105103101",
+                                        "title": "航运行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105103102",
+                                        "title": "邮政快递行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105103103",
+                                        "title": "多式联运与代理行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105103104",
+                                        "title": "公路运输行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105103105",
+                                        "title": "管道运输行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105103106",
+                                        "title": "航空运输行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105103107",
+                                        "title": "铁路运输行业"
+                                    }
+                                ],
+                                "id": "101101105103",
+                                "title": "交运物流行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101105104",
+                                "title": "商业服务行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105105101",
+                                        "title": "基础设施建设行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105105102",
+                                        "title": "住宅建设行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101105105103",
+                                        "title": "建筑安装与装修行业"
+                                    }
+                                ],
+                                "id": "101101105105",
+                                "title": "建筑行业"
+                            }
+                        ],
+                        "id": "101101105",
+                        "title": "工业品与服务行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101106101",
+                                "title": "餐饮酒店行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101106102101",
+                                        "title": "新闻出版行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101106102102",
+                                        "title": "影视动漫行业"
+                                    }
+                                ],
+                                "id": "101101106102",
+                                "title": "传媒行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101106103101",
+                                        "title": "汽车行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101106103102",
+                                        "title": "汽车零配件行业"
+                                    }
+                                ],
+                                "id": "101101106103",
+                                "title": "汽车及零配件行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101106104101",
+                                        "title": "文艺服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101106104102",
+                                        "title": "娱乐行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101106104103",
+                                        "title": "体育服务行业"
+                                    }
+                                ],
+                                "id": "101101106104",
+                                "title": "文体娱乐服务行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101106105",
+                                "title": "教育行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101106106",
+                                "title": "消费服务行业"
+                            }
+                        ],
+                        "id": "101101106",
+                        "title": "可选消费品行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101107101",
+                                "title": "硬件与设备行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101107102101",
+                                        "title": "电信服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101107102102",
+                                        "title": "软件与技术服务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101107102103",
+                                        "title": "互联网服务行业"
+                                    }
+                                ],
+                                "id": "101101107102",
+                                "title": "服务与软件行业"
+                            }
+                        ],
+                        "id": "101101107",
+                        "title": "信息技术行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101108101101",
+                                        "title": "林木制品行业"
+                                    }
+                                ],
+                                "id": "101101108101",
+                                "title": "林木与纸制品行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101108102",
+                                "title": "建材行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101108103",
+                                "title": "化工行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101108104",
+                                "title": "能源行业"
+                            }
+                        ],
+                        "id": "101101108",
+                        "title": "能源与基础材料行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101109101101",
+                                        "title": "水务行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101109101102",
+                                        "title": "电力行业"
+                                    }
+                                ],
+                                "id": "101101109101",
+                                "title": "公用事业行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101109102101",
+                                        "title": "土地与水利管理行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101109102102",
+                                        "title": "环保行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101109102103",
+                                        "title": "市政管理行业"
+                                    }
+                                ],
+                                "id": "101101109102",
+                                "title": "环保与公共服务行业"
+                            }
+                        ],
+                        "id": "101101109",
+                        "title": "公用事业与环保行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101110101",
+                                "title": "房地产行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101110102101",
+                                        "title": "其它金融行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101110102102",
+                                        "title": "保险行业"
+                                    }
+                                ],
+                                "id": "101101110102",
+                                "title": "金融行业"
+                            }
+                        ],
+                        "id": "101101110",
+                        "title": "金融地产行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101111101101",
+                                        "title": "商超百货行业"
+                                    },
+                                    {
+                                        "expand": false,
+                                        "children": [
+
+                                        ],
+                                        "id": "101101111101102",
+                                        "title": "专业零售行业"
+                                    }
+                                ],
+                                "id": "101101111101",
+                                "title": "零售行业"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101101111102",
+                                "title": "贸易批发行业"
+                            }
+                        ],
+                        "id": "101101111",
+                        "title": "批发零售行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101101112",
+                        "title": "运动健康行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101101113",
+                        "title": "汽车服务行业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101101114",
+                        "title": "互联网保险行业"
+                    }
+                ],
+                "id": "101101",
+                "title": "行业"
+            },
+            {
+                "expand": false,
+                "children": [
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101102101",
+                        "title": "企业"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101102102",
+                        "title": "监管机构自律组织"
+                    }
+                ],
+                "id": "101102",
+                "title": "机构"
+            },
+            {
+                "expand": false,
+                "children": [
+
+                ],
+                "id": "101103",
+                "title": "品牌"
+            },
+            {
+                "expand": false,
+                "children": [
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101104101101",
+                                "title": "首脑会议"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101104101102",
+                                "title": "部长级会议"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101104101103",
+                                "title": "大使级会议"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101104101104",
+                                "title": "国际学术会议"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101104101105",
+                                "title": "国际展会"
+                            }
+                        ],
+                        "id": "101104101",
+                        "title": "国际会议"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101104102101",
+                                "title": "党政会议"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101104102102",
+                                "title": "行业会议"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101104102103",
+                                "title": "国内学术会议"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101104102104",
+                                "title": "国内展会"
+                            }
+                        ],
+                        "id": "101104102",
+                        "title": "国内会议"
+                    }
+                ],
+                "id": "101104",
+                "title": "会议"
+            },
+            {
+                "expand": false,
+                "children": [
+
+                ],
+                "id": "101105",
+                "title": "电商渠道"
+            },
+            {
+                "expand": false,
+                "children": [
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101106101101",
+                                "title": "事件"
+                            }
+                        ],
+                        "id": "101106101",
+                        "title": "工商信息"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101106102",
+                        "title": "企业发展"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101106103",
+                        "title": "司法风险"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101106104",
+                        "title": "经营风险"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101106105",
+                        "title": "经营信息"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101106106",
+                        "title": "知识产权"
+                    },
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101106107",
+                        "title": "产品事件"
+                    }
+                ],
+                "id": "101106",
+                "title": "事件"
+            },
+            {
+                "expand": false,
+                "children": [
+                    {
+                        "expand": false,
+                        "children": [
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101107101101",
+                                "title": "企业董事长"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101107101102",
+                                "title": "行业大V"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101107101103",
+                                "title": "企业总经理"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101107101104",
+                                "title": "企业董事"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101107101105",
+                                "title": "企业监事"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101107101106",
+                                "title": "企业股东个人"
+                            },
+                            {
+                                "expand": false,
+                                "children": [
+
+                                ],
+                                "id": "101107101107",
+                                "title": "品牌代言人"
+                            }
+                        ],
+                        "id": "101107101",
+                        "title": "企业类"
+                    }
+                ],
+                "id": "101107",
+                "title": "人物"
+            },
+            {
+                "expand": false,
+                "children": [
+                    {
+                        "expand": false,
+                        "children": [
+
+                        ],
+                        "id": "101108101",
+                        "title": "电商产品"
+                    }
+                ],
+                "id": "101108",
+                "title": "产品"
+            }
+        ],
+        "id": "101",
+        "title": "文本标签"
+    }
+}

@@ -839,7 +839,7 @@ export default {
 									// // this.$router.push(url);
 									// this.getNewsListTypeById(uid);
 									let routerPath = `/tbm/news/view`;
-									this.$router.push({ path: routerPath, query: { newsId: params.row.newsId } });
+									this.$router.push({ path: routerPath, query: { newsId: params.row.newsId, ref:this.$md5(`${id}TBM-COMPOSE`)} });
 								},
 							}
 						}, uid);

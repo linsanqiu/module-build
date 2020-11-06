@@ -75,6 +75,7 @@
         transfer
         remote
         filterable
+        widthAdaption
         :isComputed="isComputed"
         :remote-method="changeQueryFn"
         :loading="loadingSelect"
@@ -83,6 +84,7 @@
         :value="fieldValue"
         v-model="fieldValue"
         @on-change="changeSearch"
+        @on-clear-select="clearSelect"
         @on-keyup="onKeyUp"
       >
         <h-select-block @on-scroll="scrollFn" :data="selectblock"></h-select-block>
@@ -98,6 +100,7 @@
         :placeholder="required ? '请输入文本（必填）' :'请输入文本'"
         @input="changeValue()"
         @on-blur="inputBlur"
+        :rows="4"
       ></h-input>
     </template>
     <template v-if="type == 8">
@@ -108,6 +111,18 @@
         :disabled="disabled"
         v-model.trim="fieldValue"
         :placeholder="required ? '请输入整数（必填）' :'请输入整数'"
+        @input="changeValue()"
+      ></h-input>
+    </template>
+    <template v-if="type == 9">
+      <h-input
+        type='text'
+        clearable
+        specialFilter
+        :specialLength="getMaxLen"
+        :disabled="disabled"
+        v-model.trim="fieldValue"
+        :placeholder="required ? '请输入数字（必填）' :'请输入数字'"
         @input="changeValue()"
       ></h-input>
     </template>
@@ -299,7 +314,7 @@ export default {
               defaultYear + "-" + defaultMonth + "-" + defaultDate;
             this.changeValue(this.fieldValue);
             return;
-            
+
           }
         }
       }
@@ -433,7 +448,7 @@ export default {
       let {nameKey, valueKey , action} = options
       let body = {
         pageSize: this.pagination.size,
-        pageNum: this.pagination.current, 
+        pageNum: this.pagination.current,
         keyword: query,
       }
       this.$http.post(action, body).then(
@@ -475,6 +490,10 @@ export default {
     changeSearch(value){
       this.fieldValue = value
       this.changeValue()
+    },
+    // 清除选项
+    clearSelect (value) {
+      this.$emit("clear", value);
     },
     changeValue(value = false) {
       if (value !== false) {

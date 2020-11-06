@@ -1,1 +1,1 @@
-import '@common/entry/index.js'
+import '@common/entry/index.js';

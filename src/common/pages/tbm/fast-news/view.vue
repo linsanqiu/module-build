@@ -63,6 +63,8 @@ export default {
         "conclusion",
         "opinionType",
         "imageUrl",
+        'sentiment',
+        'newsImportance'
       ],
       showBtns: ["pre", "next"],
       ruleInline: {},

@@ -613,6 +613,8 @@ function initEventItem(state, init=false) {
             let value = eventInfo[key]
             if (key == 'content' && !value){
                 eventInfo.editing = true
+            }else if (key == 'content' && value){
+                eventInfo[key] = value.replace(/\\n/g, "\n\t");
             }
             if(publishStatusCode == '1' || publishStatusCode == '2'){
                 eventInfo.editing = true

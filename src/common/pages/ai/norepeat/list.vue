@@ -125,7 +125,7 @@ export default {
 							},
 							on: {
 								click: () => {
-									this.$router.push({path:'/tbm/news/view',query:{newsId: params.row.newsId}});
+									this.$router.push({path:'/tbm/news/view',query:{newsId: params.row.newsId, ref: this.$md5(`${params.row.newsId}TBM-COMPOSE`)}});
 								}
 							}
 						},params.row.newsTitle)

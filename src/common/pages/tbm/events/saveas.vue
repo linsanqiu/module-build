@@ -26,11 +26,27 @@
 				  	 		<NewsFormItem :readonlyFlag="true" className="readonlyItem" formItemType="input" :pageType='pageType'  itemName="newsId" labelName="资讯ID：" :commonFilters="commonFilters"></NewsFormItem>
 							<NewsFormItem :pageType='pageType' itemName="dsNewsColumns" labelName="原始栏目：" :commonFilters="commonFilters"></NewsFormItem>	
 					    	<NewsFormItem :readonlyFlag="true" formItemType="select" :pageType='pageType' itemName="range" labelName="范围：" :commonFilters="commonFilters"></NewsFormItem>
+							<NewsFormItem
+								:readonlyFlag="true"
+								formItemType="select"
+								:pageType="pageType"
+								itemName="newsImportance"
+								labelName="新闻重要程度："
+								:commonFilters="commonFilters"
+							></NewsFormItem>
 					  	</div>
 					  	<div  class="item-right">
 						  	<NewsFormItem formItemType="datepicker" :pageType='pageType'  itemName="srcPublishDate" labelName="信息发布时间：" :commonFilters="commonFilters"></NewsFormItem>
 							<NewsFormItem :pageType='pageType' itemName="mediaSource" labelName="媒体出处：" :commonFilters="commonFilters"></NewsFormItem>
 							<NewsFormItem :pageType='pageType' itemName="modifyName" labelName="修改人员：" :commonFilters="commonFilters"></NewsFormItem>
+							<NewsFormItem
+								:readonlyFlag="true"
+								formItemType="select"
+								:pageType="pageType"
+								itemName="sentiment"
+								labelName="情感方向："
+								:commonFilters="commonFilters"
+							></NewsFormItem>
 					  	</div>
 					</div>
 					</NewsDetail>	

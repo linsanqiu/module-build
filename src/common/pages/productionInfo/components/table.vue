@@ -7,14 +7,14 @@
           <table>
             <thead>
               <tr>
-                <th v-for="(items, i) in item.rowList">
+                <th v-for="(items, i) in item.rowList" :class="item.bizGroupName == '资产配置' && items.fieldName == '资产种类'? 'moreWidth':''" :key = i>
                   <span @click="onClickTitle(items.fieldName)">{{ items.fieldName }}</span>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(value, j) in valueArr[k]" @contextmenu.prevent="contextmenu('row', k, j)">
-                <td v-for="(items, i) in item.rowList">
+              <tr v-for="(value, j) in valueArr[k]" @contextmenu.prevent="contextmenu('row', k, j)" :key='j'>
+                <td v-for="(items, i) in item.rowList" :key= i :class="item.bizGroupName == '资产配置' && items.fieldName == '资产种类'? 'moreWidth':''">
                   <inputs
                     :disabled="viewPage"
                     :type="items.fieldType"
@@ -24,11 +24,12 @@
                     :selectCode="items.fieldType == 6 ? items.defaultValue : ''"
                     :select="items.fieldType == 5 ? selectObj[items.defaultValue] : []"
                     @input='inputValueChange($event, items.fieldCode, value[i])'
+                    @clear="inputValueClear($event, items.fieldCode)"
                     :repRules='items.repRules'
                   ></inputs>
                 </td>
               </tr>
-              <tr v-if="isAdd">
+              <tr v-if="isAdd" style="position:absolute;top:-5px;right:0;width:40px;border:none">
                 <td class="colspan" :colspan="item.rowList.length">
                   <span class="btn_add" @click="add( item, k)" title="新增">+</span>
                 </td>
@@ -40,12 +41,11 @@
           <table>
             <tbody>
               <tr v-for="(items, i) in item.colList">
-                <th align="left">
+                <th align="left" style="width:40px">
                   <span @click="onClickTitle(items.fieldName)">{{ items.fieldName }}</span>
                 </th>
                 <td
                   v-for="(valueData, j) in valueArr[k][i]"
-                  @contextmenu.prevent="contextmenu('col', k, j)"
                 >
                   <inputs
                     :disabled="viewPage"
@@ -56,6 +56,7 @@
                     :selectCode="items.fieldType == 6 ? items.defaultValue : ''"
                     :select="items.fieldType == 5 ? selectObj[items.defaultValue] : []"
                     @input='inputValueChange($event, items.fieldCode,valueArr[k][i][j])'
+                    @clear="inputValueClear($event, items.fieldCode)"
                     :repRules='items.repRules'
                   ></inputs>
                 </td>
@@ -173,12 +174,14 @@ export default {
     add(data, index) {
       if (data.rowList.length > 0) {
         let arr = [];
+        let dataLength = this.value[index].length;
         for (let k = 0, lens = data.rowList.length; k < lens; k++) {
-          arr[k] = "";
+          let copyData = dataLength ? this.value[index][dataLength - 1] : null;
+          let isCopy = data.rowList[k].copyType && String(data.rowList[k].copyType) === '2';
+          arr[k] = isCopy ? copyData && copyData[k] : '';
         }
         this.valueArr[index].push(arr);
       } else {
-        let arr = [];
         for (let k = 0, lens = data.colList.length; k < lens; k++) {
           this.valueArr[index][k].push("");
         }
@@ -261,9 +264,15 @@ export default {
     setValueArr() {
       this.valueArr = this.value ? copyDeep(this.value) : [];
     },
+    // 选项清除
+    inputValueClear (value,fieldCode) {
+      if (fieldCode == 'prodCode'){
+        this.$emit('prodCodeClear', value)
+      }
+    },
     inputValueChange(value,fieldCode){
       if (fieldCode == 'prodCode'){
-        if (!value)return
+        if (!value) return ;
         this.$emit('prodCodeChange', value)
       }
     }
@@ -319,7 +328,7 @@ export default {
   cursor: auto;
 }
 table {
-  position: relative;
+  /* position: relative; */
   border-collapse: collapse;
   border: none;
   table-layout: fixed;
@@ -351,6 +360,7 @@ th span {
 }
 .colspan {
   text-align: center;
+  border: none;
 }
 .rowspan {
   text-align: center;
@@ -366,6 +376,7 @@ th span {
 }
 .group {
   margin-bottom: 10px;
+  position: relative;
 }
 .group p {
   line-height: 24px;
@@ -373,5 +384,8 @@ th span {
 }
 .group:nth-child(1) {
   margin-top: 0;
+}
+.moreWidth{
+  width: 300px;
 }
 </style>

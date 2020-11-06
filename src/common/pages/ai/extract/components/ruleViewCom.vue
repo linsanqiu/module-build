@@ -339,20 +339,21 @@
               >
                 <span>上传</span>
               </uploadFile>-->
-              <Upload
-                action="/tm/ruleConfigFile/upload"
-                name="files"
-                :data="{ ruleConfigId: ruleContent.id }"
-                :uploadAll="true"
-                :multiple="true"
-                :show-upload-list="false"
-                :on-self-success="uploadSuccess"
-                :before-upload="handleBeforeUpload"
-                :mergeHook="true"
-                :on-error="uploadError"
-              >
-                <span>上传</span>
-              </Upload>
+<!--              <Upload-->
+<!--                action="/tm/ruleConfigFile/upload"-->
+<!--                name="files"-->
+<!--                :data="{ ruleConfigId: ruleContent.id }"-->
+<!--                :uploadAll="true"-->
+<!--                :multiple="true"-->
+<!--                :show-upload-list="false"-->
+<!--                :on-self-success="uploadSuccess"-->
+<!--                :before-upload="handleBeforeUpload"-->
+<!--                :mergeHook="true"-->
+<!--                :on-error="uploadError"-->
+<!--              >-->
+<!--                <span>上传</span>-->
+<!--              </Upload>-->
+              <customUpload @change="inputChange" title="上传"></customUpload>
             </template>
           </p>
           <ul class>
@@ -630,21 +631,21 @@
               <h-button type="primary">文件上传中...</h-button>
             </template>
             <template v-else>
-              <Upload
-                action="/tm/ruleConfigFile/upload"
-                name="files"
-                :data="{ ruleConfigId: ruleContent.id }"
-                :uploadAll="true"
-                :multiple="true"
-                :show-upload-list="false"
-                :on-self-success="uploadSuccess"
-                :before-upload="handleBeforeUpload"
-                :mergeHook="true"
-                :on-error="uploadError"
-              >
-                <h-button type="primary">选择文件</h-button>
-              </Upload>
-              <customUpload @change="handleBeforeUpload" title="选择文件"></customUpload>
+<!--              <Upload-->
+<!--                action="/tm/ruleConfigFile/upload"-->
+<!--                name="files"-->
+<!--                :data="{ ruleConfigId: ruleContent.id }"-->
+<!--                :uploadAll="true"-->
+<!--                :multiple="true"-->
+<!--                :show-upload-list="false"-->
+<!--                :on-self-success="uploadSuccess"-->
+<!--                :before-upload="handleBeforeUpload"-->
+<!--                :mergeHook="true"-->
+<!--                :on-error="uploadError"-->
+<!--              >-->
+<!--                <h-button type="primary">选择文件</h-button>-->
+<!--              </Upload>-->
+              <customUpload @change="inputChange" title="选择文件"></customUpload>
             </template>
           </div>
           <div class="testfile">
@@ -742,6 +743,7 @@ import tagTextarea from "../components/tagTextarea";
 import modalView from "../components/modalView";
 import uploadFile from "../components/uploadFile";
 import customUpload from "./customUpload";
+import BMF from 'browser-md5-file';
 import fastVue from "../../../tbm/reportStatistics/news/fast.vue";
 export default {
   name: "ruleView",
@@ -2795,6 +2797,112 @@ export default {
         .catch((err) => {
           this.$hMessage.error("提交失败");
         });
+    },
+    // 获取文件MD5值
+    codeMD5 (file) {
+      return new Promise((resolve) => {
+        const bmf = new BMF();
+        bmf.md5(
+          file,
+          (err, md5) => {
+            resolve(md5)
+          },
+          progress => {
+          },
+        );
+      })
+    },
+    // 文件上传 change 事件
+    async inputChange (event) {
+      const files = event.target.files;
+      this.fileLen = files.length;
+      if(this.fileLen > this.maxFileSum){
+        this.$hMessage.error({
+          duration: 3,
+          content: '单次上传文件数量不可以超过'+ this.maxFileSum +'个'
+        });
+        return;
+      }
+      if(this.activeFileSum + this.fileLen > this.maxFileAll){
+        this.$hMessage.error({
+          duration: 3,
+          content: '文件总数不可以超过'+ this.maxFileAll +'个'
+        });
+        return;
+      }
+      let sizes = [];
+      for (let item of files) {
+        sizes.push(item.size)
+      }
+      if (Math.max(...sizes) > 1024 * 1024 * 200) {
+        this.$hMessage.error({
+          duration: 3,
+          content: '单个文件大小不得超过200M!'
+        });
+        return;
+      }
+      this.fileUpload = true;
+      let md5List = [];
+      for (let item of files) {
+        let value = await this.codeMD5(item);
+        md5List.push(value.toLocaleUpperCase());
+      }
+      this.checkFileNeedUpload(md5List, files);
+    },
+    // 校验文件是否已存在资源库中
+    checkFileNeedUpload (md5List, files) {
+      this.$http.post('/tm/rcFile/verifyUploadFiles', {
+        fileMd5s: md5List
+      }).then((res) => {
+        let data = res.data;
+        if(data.status === this.$api.SUCCESS){
+          const { repeatUploadFileMd5s } = data.body.verifyResult;
+          let fileList = Object.values(files);
+          let list = []
+          if (repeatUploadFileMd5s.length) {
+            md5List.forEach((item) => {
+              if (repeatUploadFileMd5s.indexOf(item) === -1) {
+                list.push(fileList[repeatUploadFileMd5s.indexOf(item)])
+              }
+            })
+          }
+          this.uploadFile(repeatUploadFileMd5s, list);
+        } else {
+          this.$hMessage.error('上传失败');
+          this.fileUpload = false;
+        }
+      }).catch((err) => {
+        this.$hMessage.error('上传失败');
+        this.fileUpload = false;
+        this.isSequelUp = false;
+      })
+    },
+    // 上传文件
+    uploadFile (repeatUploadFileMd5s, fileList) {
+      let formData = new FormData();
+      formData.append('ruleConfigId', this.ruleContent.id);
+      repeatUploadFileMd5s.forEach(md5 => {
+        formData.append('repeatUploadFileMd5s', md5);
+      })
+      fileList.forEach(file => {
+        formData.append('files', file, file.name);
+      })
+      this.$http.post('/tm/ruleConfigFile/upload', formData).then(res => {
+        let response = res.data;
+        this.fileUpload = false;
+        if (response.status === this.$api.SUCCESS) {
+          let data = response.body || {};
+          this.$hMessage.success("上传成功");
+          let list = JSON.parse(data.json);
+          this.testFileList = [...list, ...this.testFileList];
+          this.selectionDel = [];
+        } else {
+          this.$hMessage.error(response.msg);
+        }
+      }).catch(() => {
+        this.$hMessage.error('上传失败');
+        this.fileUpload = false;
+      })
     },
     handleBeforeUpload() {
       this.fileUpload = true;

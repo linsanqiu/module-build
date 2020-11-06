@@ -147,7 +147,6 @@
             </h-button>
           </div>
           <h-form
-            class="formSearchBox"
             ref="formInline"
             :rules="ruleInlineData"
             :model="detailData"
@@ -1647,10 +1646,13 @@ export default {
     showSimilarModal() {
       let similarCompanyList = this.similarCompanyList;
       let allList = [];
+      let nowEventList = this.eventListCopy.filter(item => {
+        return item.isDelete == 0
+      }) 
       for (let similar of similarCompanyList) {
         let businessId = similar.value;
         let eventList = [];
-        for (let item of this.eventListCopy) {
+        for (let item of nowEventList) {
           let pass = false;
           let { companyTags, securityTags } = item;
           for (let i = 0; i < companyTags.length; i++) {
@@ -1720,7 +1722,10 @@ export default {
       //   this.similarModalShow = true;
       let idDict = {};
       let similarCompanyList = [];
-      for (let item of this.eventListCopy) {
+      let nowEventList = this.eventListCopy.filter(item => {
+        return item.isDelete == 0
+      })
+      for (let item of nowEventList) {
         let eventPass = false;
         let companyTags = item.companyTags;
         let securityTags = item.securityTags;

@@ -110,6 +110,12 @@
                   <h-select-block :data="rowItem.dataList"></h-select-block>
                 </h-simple-select>-->
               </template>
+              <template v-if="rowItem.fieldType  == 10">
+                <div
+                  :class="rowItem.disabled?'disableDiv': ''"
+                  v-html="formattingHtml(nowData[rowItem.fieldCode])"
+                ></div>
+              </template>
             </template>
           </td>
         </tr>
@@ -147,6 +153,7 @@
             </td>
           </tr>
         </template>
+        
       </template>
     </table>
     <div>
@@ -260,7 +267,17 @@ export default {
     },
     selectChange(obj, fieldCode){
       this.$emit('selectChange', obj, fieldCode)
-    }
+    },
+    formattingHtml(str){
+      if (str){
+        let newStr = ''
+        newStr = str.replace(/\\n/g, "<br/>");
+        return newStr;
+      }else{
+        return ''
+      }
+      
+		},
   },
   watch: {
     tableTemplateData: {
@@ -382,5 +399,10 @@ export default {
 
 .tableTemplateBox /deep/ input:disabled{
   color: #999;
+}
+.disableDiv{
+  color: #999;
+  max-height: 150px;
+  overflow: auto;
 }
 </style>

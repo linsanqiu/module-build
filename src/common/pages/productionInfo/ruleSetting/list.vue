@@ -5,20 +5,6 @@
         <ul slot="content">
           <li>
             <dl>
-              <dt>业务类型：</dt>
-              <dd>
-                <h-select v-model="searchData.bizType" placeholder="请选择" @on-change="bizTypeChange">
-                  <h-option
-                    v-for="item in bizTypeList"
-                    :value="item.entryValue"
-                    :key="item.entryValue"
-                  >{{ item.entryName }}</h-option>
-                </h-select>
-              </dd>
-            </dl>
-          </li>
-          <li>
-            <dl>
               <dt>业务属性：</dt>
               <dd>
                 <h-select v-model="searchData.bizGroupCode" placeholder="请选择">
@@ -26,7 +12,25 @@
                     v-for="item in bizGroupList"
                     :value="item.bizGroupCode"
                     :key="item.bizGroupCode"
-                  >{{ item.bizGroupName }}</h-option>
+                  >{{ item.bizGroupName }}
+                  </h-option>
+                </h-select>
+              </dd>
+            </dl>
+          </li>
+          <li>
+            <dl>
+              <dt>业务类型：</dt>
+              <dd>
+                <h-select v-model="searchData.bizType"
+                          placeholder="请选择"
+                          @on-change="bizTypeChange">
+                  <h-option
+                    v-for="item in bizTypeList"
+                    :value="item.entryValue"
+                    :key="item.entryValue"
+                  >{{ item.entryName }}
+                  </h-option>
                 </h-select>
               </dd>
             </dl>
@@ -49,7 +53,8 @@
                     v-for="item in fieldTypeList"
                     :value="item.entryValue"
                     :key="item.entryValue"
-                  >{{ item.entryName }}</h-option>
+                  >{{ item.entryName }}
+                  </h-option>
                 </h-select>
               </dd>
             </dl>
@@ -110,7 +115,7 @@
       @addAttr="addAttr"
       :isRuleAdd="isRuleAdd"
       :formValue="formValue"
-      :fieldGroupTypeList="fieldGroupTypeList"
+      :bizGroupTypeList="bizGroupTypeList"
     ></ConfigModal>
 
     <h-msgBox
@@ -119,13 +124,40 @@
       class-name="vertical-center-modal"
       width="800"
       height="400"
+      :mask-closable='false'
     >
+      <div style='margin-bottom: 10px;font-size:14px'>字段名称：{{ verifyFieldName }}</div>
       <Verification
-        :dataList="verfiyList"
+        :dataList="verifyList"
         @addVerify="addVerify"
         @deleteVerify="deleteVerify"
-        ref="verifycation"
+        ref="verification"
       ></Verification>
+      <div class="associated-row">
+        <span>关联字段：</span>
+        <span class="select">
+          <h-tag v-for="item in associatedFields"
+                 :key="item"
+                 type="border"
+                 color="blue">{{ item }}</h-tag>
+          <h-select
+            v-if="false"
+            v-model="associatedFields"
+            placeholder="请选择关联字段"
+            multiple
+            filterable
+            multClearable
+            not-found-text="无">
+            <h-option-group v-for="(item,index) in associatedFieldList" :key="index" label="热门城市">
+              <h-option
+                v-for="(option) in item.options"
+                :value="option.id"
+                :key="option.id"
+              >{{ option.name }}</h-option>
+            </h-option-group>
+          </h-select>
+        </span>
+      </div>
       <div slot="footer">
         <h-button @on-click="closeVerifyModal">取消</h-button>
         <h-button @on-click="saveVerifyRule" type="primary">确定</h-button>
@@ -137,6 +169,7 @@
       class-name="vertical-center-modal"
       width="800"
       height="400"
+      :mask-closable='false'
     >
       <div v-for="(rule, index) in rules" :key="index">
         <ReplaceRules :rule="rule" :index="index" :ref="`replaceForm${index}`">
@@ -163,7 +196,7 @@
 import ConfigModal from "../components/configModal";
 import Verification from "../components/verification";
 import ReplaceRules from "../components/replaceRules";
-import { copyDeep } from "@/filters/index";
+import {copyDeep} from "@/filters/index";
 import {
   getAttrList,
   getTempGroups,
@@ -175,13 +208,14 @@ import {
   getFieldVerify,
   saveOrModifyVerifyRule,
 } from "../api/apiManager";
+
 export default {
   name: "ProductionInfoRuleSettingList",
-  components: { ConfigModal, Verification, ReplaceRules },
+  components: {ConfigModal, Verification, ReplaceRules},
   data() {
     return {
       searchData: {
-        bizType: "",
+        bizType: '',
         bizGroupCode: "",
         fieldName: "",
         fieldType: "",
@@ -201,13 +235,23 @@ export default {
       fieldTypeList: [],
       DictItem: {},
       SearchDict: [],
-      fieldGroupTypeList: [],
+      bizGroupTypeList: [],
       commonTableCols: [
         {
-          key: "bizTypeName",
+          key: "bizNames",
           title: "业务类型",
           align: "left",
-          width: 150,
+          width: 200,
+          render: (h, params) => {
+            const {bizNames} = params.row;
+            return (
+              <div style="padding: 5px 0;">
+                <div
+                  title={bizNames}
+                  style='overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;cursor: default;'>{bizNames}</div>
+              </div>
+            )
+          }
         },
         {
           key: "fieldName",
@@ -265,7 +309,7 @@ export default {
           fixed: "right",
           render: (h, params) => {
             let index = params.index;
-            let { id, fieldType, bizType } = params.row;
+            let {fieldId, fieldType, bizType, fieldName} = params.row;
             return (
               <div>
                 <span
@@ -276,7 +320,7 @@ export default {
                 ></span>
                 <span
                   title="检验规则"
-                  onClick={this.editRuleVerify.bind(this, id, bizType)}
+                  onClick={this.editRuleVerify.bind(this, fieldId, bizType, fieldName)}
                   style="color: #298DFF"
                   class="iconfont tab-icon-btn icon-settings"
                 ></span>
@@ -301,7 +345,7 @@ export default {
       ],
       formValue: {
         id: "", //字段id
-        bizType: "",
+        bizTypes: [],
         fieldName: "", //字段名
         fieldCode: "", //字段编码
         fieldType: 2, //字段类型，1数字，2文本，3日期，4金额
@@ -311,12 +355,15 @@ export default {
         length: "", //字段长度
         remark: "", //备注
         defaultValue: "", //枚举类型
-        fieldGroupType: 1,
+        bizGroupType: 1,
       },
       configModalShow: false,
       isRuleAdd: false,
       verifyModalShow: false,
-      verfiyList: [{}],
+      verifyList: [{}], // 校验规则列表
+      verifyFieldName: '', //校验规则title
+      associatedFields: [], // 选择的关联字段列表
+      associatedFieldList: [], // 关联字段列表
       replaceModalShow: false,
       rules: [],
       selectionIndex: -1,
@@ -329,9 +376,6 @@ export default {
     },
   },
   methods: {
-    // handleDbclick(data) {
-    //   this.configModalShow = true;
-    // },
     onPageChange(current) {
       this.pagination.currentPage = current;
       this.getInfoList();
@@ -345,7 +389,7 @@ export default {
       this.configModalShow = true;
       this.formValue = {
         id: "", //字段id
-        bizType: "",
+        bizTypes: [],
         fieldName: "", //字段名
         fieldCode: "", //字段编码
         fieldType: 2, //字段类型，1数字，2文本，3日期，4金额
@@ -355,7 +399,7 @@ export default {
         length: "", //字段长度
         remark: "", //备注
         defaultValue: "", //枚举类型
-        fieldGroupType: 1,
+        bizGroupType: 1
       };
       this.$refs.configModal && this.$refs.configModal.resetFields();
     },
@@ -399,7 +443,7 @@ export default {
             });
             this.handleSearch();
           } else {
-            this.$hMessage.error({ content: data.msg });
+            this.$hMessage.error({content: data.msg});
           }
           this.tableLoading = false;
         })
@@ -419,7 +463,10 @@ export default {
         .then((data) => {
           let dataList = data.dataList || [];
           for (let item of dataList) {
-            item.bizType = (item.bizType || "").toString();
+            // item.bizTypes = (item.bizTypes || "").toString();
+            if (!Array.isArray(item.bizTypes)) {
+              item.bizType = (item.bizTypes && [item.bizTypes.toString()]) || []
+            }
           }
           this.commonTableDatas = dataList;
           this.total = data.totalSize;
@@ -427,7 +474,7 @@ export default {
         })
         .catch((error) => {
           this.tableLoading = false;
-          this.$hMessage.error({ content: error.content });
+          this.$hMessage.error({content: error.content});
         });
     },
     getBizType() {
@@ -439,7 +486,7 @@ export default {
           if (data.status == this.$api.SUCCESS) {
             this.bizTypeList = data.body.dictList || [];
           } else {
-            this.$hMessage.error({ content: data.msg });
+            this.$hMessage.error({content: data.msg});
           }
         })
         .catch((err) => {
@@ -452,21 +499,31 @@ export default {
         .get(url)
         .then((res) => {
           let data = res.data;
-          if (data.status == this.$api.SUCCESS) {
+          if (data.status === this.$api.SUCCESS) {
             this.fieldTypeList = data.body.dictList || [];
           } else {
-            this.$hMessage.error({ content: data.msg });
+            this.$hMessage.error({content: data.msg});
           }
         })
         .catch((err) => {
           this.$hLoading.error("获取业务类别失败！");
         });
     },
-    getBizGroupList(value='') {
-      let body = {
-        bizType: value
-      };
-      getTempGroups(body)
+    getBizGroupList() {
+      // this.$http
+      //   .get('/pic/audit/sys/getDict?dictCode=BIZ_GROUP')
+      //   .then((res) => {
+      //     let oTmp = res.data;
+      //     if (oTmp.status === this.$api.SUCCESS) {
+      //       this.bizGroupList = oTmp.body.dictList || [];
+      //     } else {
+      //       this.$hMessage.error(oTmp.msg);
+      //     }
+      //   })
+      //   .catch(() => {
+      //     this.$hMessage.error("网络错误，获取业务属性失败");
+      //   });
+      getTempGroups({})
         .then((data) => {
           this.bizGroupList = data.bizGroups || [];
         })
@@ -508,7 +565,8 @@ export default {
         });
     },
 
-    editRuleVerify(fieldId, bizType) {
+    editRuleVerify(fieldId, bizType, fieldName) {
+      this.verifyFieldName = fieldName
       let body = {
         fieldId: fieldId,
         bizType: bizType,
@@ -516,7 +574,8 @@ export default {
       getFieldVerify(body)
         .then((data) => {
           this.verifyModalShow = true;
-          this.verfiyList = data.verifyRules || [];
+          this.verifyList = data.verifyRules || [];
+          this.associatedFields = data.relatedMap || {};
           let verifyDict = {
             fieldId: fieldId,
             bizType: bizType,
@@ -527,21 +586,23 @@ export default {
           this.$hMessage.error(error.content);
         });
     },
+    // 关闭检验规则弹窗
     closeVerifyModal() {
       this.verifyModalShow = false;
     },
+    // 保存校验规则
     saveVerifyRule() {
-      this.$refs.verifycation.checkTable((pass, allData) => {
+      this.$refs.verification.checkTable((pass, allData) => {
         if (pass) {
           // 修改校验规则接口
-          let { bizType, fieldId } = this.verifyDict;
+          let {bizType, fieldId} = this.verifyDict;
           let body = {
             bizType: bizType,
             fieldId: fieldId,
             verifyRules: allData,
           };
           saveOrModifyVerifyRule(body)
-            .then((data) => {
+            .then(() => {
               this.$hMessage.success("修改成功");
               this.verifyModalShow = false;
             })
@@ -553,11 +614,11 @@ export default {
     },
     addVerify(value, dataList) {
       dataList.push({});
-      this.verfiyList = dataList;
+      this.verifyList = dataList;
     },
     deleteVerify(index, dataList) {
       dataList.splice(index, 1);
-      this.verfiyList = dataList;
+      this.verifyList = dataList;
     },
     deleteRule(index) {
       this.$hMsgBox.confirm({
@@ -570,7 +631,7 @@ export default {
       });
     },
     addRule() {
-      let { fieldId, bizType, fieldName } = this.selectionItem;
+      let {fieldId, bizType, fieldName} = this.selectionItem;
       this.rules.push({
         oldStr: "",
         newStr: "",
@@ -580,16 +641,16 @@ export default {
     },
     editReplaceRule(index) {
       this.selectionIndex = index;
-      let { id } = this.commonTableDatas[index];
+      let {fieldId} = this.commonTableDatas[index];
       let body = {
-        fieldId: id,
+        fieldId: fieldId,
       };
       getRepRuleInfos(body)
         .then((data) => {
           for (let i = 0; i < this.rules.length; i++) {
             let formPass = this.$refs[`replaceForm${i}`][0].$refs[
               "replaceForm"
-            ].resetFields();
+              ].resetFields();
           }
           this.replaceModalShow = true;
           this.rules = data.repRules || [];
@@ -606,7 +667,7 @@ export default {
       for (let i = 0; i < this.rules.length; i++) {
         let formPass = this.$refs[`replaceForm${i}`][0].$refs[
           "replaceForm"
-        ].validate((valid) => {
+          ].validate((valid) => {
           if (!valid) {
             pass = false;
           }
@@ -614,10 +675,10 @@ export default {
       }
       if (pass) {
         // 修改规则
-        let { id, bizType } = this.selectionItem;
+        let {fieldId, bizType} = this.selectionItem;
         let body = {
           bizType: bizType,
-          fieldId: id,
+          fieldId: fieldId,
           repRules: this.rules,
         };
         saveOrModifyRule(body)
@@ -631,14 +692,14 @@ export default {
       }
     },
     deleteAttr(index) {
-      let { id, fieldName } = this.commonTableDatas[index];
+      let {fieldId, fieldName} = this.commonTableDatas[index];
       this.$hMsgBox.confirm({
         isOkLeft: true,
         title: "提示",
         content: `是否删除${fieldName}字段`,
         onOk: () => {
           let body = {
-            id: id,
+            fieldId: fieldId,
           };
           removeRule(body)
             .then((data) => {
@@ -657,14 +718,16 @@ export default {
       };
       getDictList(body)
         .then((data) => {
-          this.fieldGroupTypeList = data.dictList || [];
+          this.bizGroupTypeList = data.dictList || [];
         })
         .catch((error) => {
           this.$hMessage.error(error.content);
         });
     },
     bizTypeChange(value) {
-      this.getBizGroupList(value)
+      console.log(value)
+
+      // this.getBizGroupList(value)
     },
   },
   mounted() {
@@ -684,5 +747,16 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.associated-row {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: flex-start;
+
+  .select {
+    flex: 1;
+    margin-left: 5px;
+  }
+}
 </style>

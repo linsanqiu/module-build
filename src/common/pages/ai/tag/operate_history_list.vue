@@ -324,7 +324,7 @@ export default {
 	methods: {
 		// 查看打标详情
 		skipNewsDetail(routerPath, newsId) {
-			this.$router.push({ path: routerPath, query: { newsId: newsId } });
+			this.$router.push({ path: routerPath, query: { newsId: newsId, ref:this.$md5(`${newsId}TBM-COMPOSE`)}});
 		},
 		// 时间范围选择框更改时间
 		onChangeModDateRangePicker(values) {

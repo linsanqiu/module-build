@@ -199,6 +199,18 @@
 						</dd>
 					</dl>
 				</li>
+				<li>
+		          <dl>
+		            <dt>舆情类型：</dt>
+		            <dd>
+						<h-select  placeholder="请选择舆情类型" v-model="searchData.pubSentimentNewsType">
+							<h-option v-for="(item, i) in eventTypeList" :value="item.dictEntry" :key="item.dictEntry">
+								{{item.entryName}}
+							</h-option>
+						</h-select>
+		            </dd>
+		          </dl>
+		        </li>
 				<li class="search-wrapper-but">
 					<h-button  type="primary" data-ref="init-btn" @click="handleSearch">查询</h-button>
 					<h-button type="primary" data-ref="init-btn" @click="handleProcessFn">进入流程</h-button>
@@ -302,6 +314,7 @@
 					sectsTagId:'',
 					compTagId:'',
 					timeType: '',
+					pubSentimentNewsType: ''
 				},
 				publishStatus:['0'],
 				loadingText:'加载中',
@@ -459,7 +472,30 @@
 						title: "类别（四级）",
 						width: 200,
 						align: "left"
-					},{
+					},
+					{
+						key: "pubSentimentNewsType",
+						title: "舆情类型",
+						width: 150,
+						align: "left",
+						render: (h, params) => {
+							let {pubSentimentNewsType} = params.row
+							if (pubSentimentNewsType == '1'){
+								return(
+									<div>公司</div>
+								)
+							}else if (pubSentimentNewsType == '2'){
+								return(
+									<div>非公司</div>
+								)
+							}else{
+								return(
+									<div></div>
+								)
+							}
+						}
+					},
+					{
 						key: "createTime",
 						title: "入库时间",
 						width: 150,
@@ -493,6 +529,7 @@
 						align: "left",
 						sortable: 'custom'
 					},
+
 					{
 						key: "operation",
 						title: "操作",
@@ -644,7 +681,7 @@
 				this.searchData.createTimeEnd = values[1];
 			},
 			getHandleUser(){
-	    		let url = '/tm/news/handleuserlist?newsType='+this.searchData.newsType; 		
+	    		let url = '/tm/news/getalluers?newsType='+this.searchData.newsType; 		
 	            this.$http.get(url).then((res) => {
 	            	let data = res.data;
 	                if(data.status == this.$api.SUCCESS){
@@ -1087,21 +1124,24 @@
 				this.$store.dispatch('getEmotionList','emotionList');		    	 
 			    this.$store.dispatch('getFinancialList','financialMarketList');
 			    this.$store.dispatch('getInfoLevelList','infoLevelList'); 
-			    this.$store.dispatch('getNewsOpenFlags','newsOpenFlags');
+				this.$store.dispatch('getNewsOpenFlags','newsOpenFlags');
+				this.$store.dispatch('getEventTypeList','eventTypeList');
 			},
 			getStorageFn(){
 				let newsOpenFlagsStorage = JSON.parse(sessionStorage.getItem("newsOpenFlags")) || null;//获取下拉列表缓存
 				let infoLevelListStorage = JSON.parse(sessionStorage.getItem("infoLevelList")) || null;//获取下拉列表缓存
 				let emotionListStorage = JSON.parse(sessionStorage.getItem("emotionList")) || null;//
 				let financialListStorage = JSON.parse(sessionStorage.getItem("financialMarketList")) || null;//			 
-				if(!infoLevelListStorage || !financialListStorage || !emotionListStorage || !newsOpenFlagsStorage){
+				let eventTypeList = JSON.parse(sessionStorage.getItem("eventTypeList")) || null;//			
+				if(!infoLevelListStorage || !financialListStorage || !emotionListStorage || !newsOpenFlagsStorage || !eventTypeList){
  					this.getCommonList();
-				}else{	  
+				}else{
 					this.$store.commit('GET_EMOTIONLIST',emotionListStorage);
 					this.$store.commit('GET_INFOLEVELLIST',infoLevelListStorage);					
 					this.$store.commit('GET_FINANCIALLIST',financialListStorage);
 					this.$store.commit('GET_FINANCIALLIST',financialListStorage);
 					this.$store.commit('GET_NEWSOPENFLAGS',newsOpenFlagsStorage);
+					this.$store.commit('GET_EVENTTYPELIST',eventTypeList);
 				}
 				// this.$store.dispatch('getSourceList','sourceList');				
 			},
@@ -1131,7 +1171,7 @@
 			},
 		},
 		computed: {
-			...mapState([ 'rangeList', 'financialMarketList','sourceList','infoLevelList','emotionList','maxTableHeight','newsOpenFlags'])
+			...mapState([ 'rangeList', 'financialMarketList','sourceList','infoLevelList','emotionList','maxTableHeight','newsOpenFlags', 'eventTypeList'])
 		},		
 		mounted(){		
 			this.searchDatas();

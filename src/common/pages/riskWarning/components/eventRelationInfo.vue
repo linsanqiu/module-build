@@ -84,8 +84,9 @@ export default {
         {
           fieldName: "公告内容",
           fieldCode: "content",
-          fieldType: 6,
-          required: 0
+          fieldType: 10,
+          required: 0,
+          disabled: true,
         }
       ]
     };
@@ -154,7 +155,7 @@ export default {
     },
     cancelRelation(){
       let content = ""
-      if (this.anncInfos.length == 0){
+      if (this.anncInfos.length == 1){
         content = `是否解绑事件${this.eventSelectIndex + 1}与公告${this.index + 1}的关联关系？该事件仅关联一个公告，解绑后事件也将被删除`
       }else{
         content = `是否解绑事件${this.eventSelectIndex + 1}与公告${this.index + 1}的关联关系？`

@@ -5,7 +5,7 @@
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /three-admin-ui/src/pages/riskWarning/components/searchHeader.vue
---> 
+-->
 <template>
   <div class="mainContent">
     <search-form>
@@ -113,10 +113,10 @@ export default {
           for (let op of fieldInfoList) {
             op.label = op.fieldName
             op.value = op.fieldCode
-            if (op.required) {
-              defaultSelect.push(op.fieldCode);
-              renderHeader.push(op);
-            }
+            // if (op.required) {
+            //   defaultSelect.push(op.fieldCode);
+            //   renderHeader.push(op);
+            // }
             fieldCodeDict[op.fieldCode] = op;
           }
           this.fieldCodeDict = fieldCodeDict;
@@ -147,7 +147,7 @@ export default {
             length = 9999,
             defaultValue,
             required,
-            fieldGroupType,
+            bizGroupType,
             fieldRepRuleList,
           } = this.fieldCodeDict[_item] || {};
           data.push({
@@ -162,7 +162,7 @@ export default {
             length: length,
             defaultValue: defaultValue,
             required: required,
-            fieldGroupType: fieldGroupType,
+            bizGroupType: bizGroupType,
           });
         }
       }
@@ -173,7 +173,7 @@ export default {
         this.$set(this.filterSelectAllSecletDict, bizGroupCode, true)
       } else {
          this.$set(this.filterSelectAllSecletDict, bizGroupCode, false)
-      } 
+      }
     },
   },
   mounted() {

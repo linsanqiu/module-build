@@ -47,6 +47,14 @@
                 labelName="范围："
                 :commonFilters="commonFilters"
               ></NewsFormItem>
+              <NewsFormItem
+                :readonlyFlag="true"
+                formItemType="select"
+                :pageType="pageType"
+                itemName="newsImportance"
+                labelName="新闻重要程度："
+                :commonFilters="commonFilters"
+              ></NewsFormItem>
             </div>
             <div class="item-right">
               <NewsFormItem
@@ -66,6 +74,14 @@
                 :pageType="pageType"
                 itemName="modifyName"
                 labelName="修改人员："
+                :commonFilters="commonFilters"
+              ></NewsFormItem>
+               <NewsFormItem
+                :readonlyFlag="true"
+                formItemType="select"
+                :pageType="pageType"
+                itemName="sentiment"
+                labelName="情感方向："
                 :commonFilters="commonFilters"
               ></NewsFormItem>
             </div>

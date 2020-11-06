@@ -13,7 +13,7 @@
 			</div>
 		</slot >
 		<div :class="[showType == 'all' ? 'search-wrapper-show' : '', 'search-wrapper']" v-show="iconDir" ref="searchWrapper" >
-			<slot name="content"></slot >
+			<slot name="content"></slot>
 		</div>
 	</div>
 </template>
@@ -245,7 +245,7 @@ export default {
 	/*height: 26px!important;*/
 	line-height: 26px;
 	padding-right: 0px!important;/*舆情三四级*/
-} 
+}
 .search-wrapper>>> .h-select-single .h-select-selection .h-select-arrow,.search-wrapper>>> .h-selectTable-single .h-selectTable-selection .h-selectTable-arrow{
 	/* right: 3px !important; */
 }

@@ -10,9 +10,13 @@ const getSearchData = params => {
 const getSimilarEvent = params => {
     return post(apiUrl.GET_SIMILAR_EVENT, params)
 }
+const getNewsSimilarList = params => {
+    return get(apiUrl.GET_NEWS_SIMILAR_LIST, params)
+}
 
 export {
     deleteNewsList,
     getSearchData,
-    getSimilarEvent
+    getSimilarEvent,
+    getNewsSimilarList,
 }

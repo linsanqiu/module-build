@@ -33,7 +33,7 @@
             :model="commonFiltersCopy" :label-width="112">
       <div class="newsDetailBox"
            :style="{'height':!isEventPage ? maxTableHeight+'px' : maxTableHeight+60+'px','min-height':maxTableHeight+'px'}">
-        <windowDrag :leftW="isEventPage ? '0px' : '370px'" :canDrag="false">
+        <windowDrag :leftW="isEventPage ? '0px' : '400px'" :canDrag="false">
           <div class="box-left-content" slot="left">
             <template v-if="!isEventPage">
               <div class="detailLeft">
@@ -66,6 +66,14 @@
                   <NewsFormItem v-if="hiddenItemArr.indexOf('newsId') <0" :readonlyFlag="true" className="readonlyItem"
                                 formItemType="input" :pageType='pageType' itemName="newsId" labelName="资讯ID："
                                 :commonFilters="commonFiltersCopy"></NewsFormItem>
+                  <NewsFormItem v-if="hiddenItemArr.indexOf('sentiment') <0" formItemType="select"
+                                :pageType='pageType' itemName="sentiment" labelName="情感方向："
+                                :commonFilters="commonFiltersCopy"
+                                :itemSelectList="sentimentList" @selectChangeFn="selectChangeFn" :tipWidth='240'></NewsFormItem>
+                  <NewsFormItem v-if="hiddenItemArr.indexOf('newsImportance') <0" formItemType="select"
+                                :pageType='pageType' itemName="newsImportance" labelName="新闻重要程度："
+                                :commonFilters="commonFiltersCopy"
+                                :itemSelectList="newsImportanceList" @selectChangeFn="selectChangeFn" :tipWidth='260'></NewsFormItem>
                   <h-form-item v-if="hiddenItemArr.indexOf('dsSourceType') <0" class="selectItem" prop="dsSourceType"
                                label="信息来源：">
                     <h-simple-select
@@ -135,7 +143,8 @@
                                 @selectChangeTreeFn="selectChangePlus"></NewsFormItem>
                   <NewsFormItem v-if="hiddenItemArr.indexOf('tradingMarket') <0" formItemType="select"
                                 :pageType='pageType' itemName="tradingMarket" labelName="交易场所："
-                                :commonFilters="commonFiltersCopy" :itemSelectList="tradingMarketList"></NewsFormItem>
+                                :commonFilters="commonFiltersCopy" :itemSelectList="tradingMarketList"
+                                @selectChangeFn="selectChangeTrading"></NewsFormItem>
                   <NewsFormItem v-if="hiddenItemArr.indexOf('form') <0" formItemType="select" :pageType='pageType'
                                 itemName="form" labelName="形态：" :commonFilters="commonFiltersCopy"
                                 :itemSelectList="formList"></NewsFormItem>
@@ -322,17 +331,15 @@
                   <NewsFormItem v-if="!isEventPage" className="contentTextBox" inputType="textarea" formItemType="input"
                                 itemName="contentText" pageType='HANDLE' labelName="资讯内容(TXT)："
                                 :commonFilters="commonFiltersCopy"></NewsFormItem>
-                  <h-form-item v-if="isEventPage" prop="contentText" label="资讯内容(TXT)：" :label-width="90"
+                  <!-- <h-form-item v-if="isEventPage" prop="contentText" label="资讯内容(TXT)：" :label-width="90"
                                :label-wrap="true">
                     <div class="contentTextBoxEvent" v-html="commonFiltersCopy.contentText"></div>
-                  </h-form-item>
+                  </h-form-item> -->
                   <h-form-item v-if="isEventPage" prop="content" label="资讯内容：" :label-width="90" :label-wrap="true">
                     <div class="contentTextBoxEvent" v-html="commonFiltersCopy.content"></div>
                   </h-form-item>
                 </div>
               </template>
-
-
             </div>
             <div class="eventPageRemark"
                  v-if="commonFiltersCopy.remark && commonFiltersCopy.remark.length && isEventPage">
@@ -572,6 +579,7 @@ import remarkModal from '@/components/remarkModal';
 import SimpleSelect from '@/components/simpleSelect';
 import {mapState, mapActions} from "vuex";
 import {ArrToString, stringToArray, copyDeep} from "@/filters/index";
+import {getNewsSimilarList} from "@/pages/tbm/api/apiManager";
 
 export default {
   components: {
@@ -796,16 +804,22 @@ export default {
         mediaSourceCode: [
           {required: true, message: '媒体出处(常量)不能为空', trigger: 'change'}
         ],
-//				sentimentLabel:[
-//					{ required: true, message: '情感方向不能为空', trigger: 'change' }
-//				],
-//				areaCode:[
-//					{ required: true, message: '信息地域不能为空', trigger: 'change' }
-//				],
+
         level: [
           {required: true, message: '信息级别不能为空', trigger: 'change'}
         ],
-
+        sentiment:[
+          {validator: this.checkSentiment, trigger:'change'},
+        ],
+        newsImportance: [
+          {validator: this.checkNewsImportance, trigger:'change'},
+        ],
+        range: [
+          {validator: this.checkRange, trigger:'change'},
+        ],
+        financial: [
+          {validator: this.checkFinancial, trigger:'change'},
+        ]
       },
       newsListTypes: [],
       newsListType: "",
@@ -889,7 +903,7 @@ export default {
       overplusTime: '',
       similarList: [],
       detailIsChange: false, //是否相等
-      checkFirst: true
+      checkFirst: true,
     }
   },
   methods: {
@@ -967,6 +981,24 @@ export default {
       let data = title.replace(/<\/?.+?\/?>/g, '').replace(/\&nbsp;/g, " ");
       this.commonFiltersCopy.title = data;
     },
+    selectChangeTrading(itemName){
+      if (this.initChange)return
+      let value = this.commonFiltersCopy[itemName];
+      if (!value)return
+      if (value == '1005000082')return
+      if (value == '1005000044' || value == '1005000046' || value == '1005000047'){
+        // 选择科创板，创业板，或新三板
+        this.commonFiltersCopy.financial = '1005000012';
+        this.getSubdivide('financialPlus', '1005000012');
+        this.commonFiltersCopy.range = '1005000006';
+        this.commonFiltersCopy.financialPlus = '1005000045';
+      }else if (value == '1005000078' || value == '1005000079'){
+        // 选择主板或者中小板
+        this.commonFiltersCopy.financial = '1005000012';
+        this.getSubdivide('financialPlus', '1005000012');
+        this.commonFiltersCopy.range = '1005000006';
+      }
+    },
     selectChangeFn(itemName) {
       if (this.initChange) return;
       let value = this.commonFiltersCopy[itemName];
@@ -980,6 +1012,10 @@ export default {
       if (itemName == 'range' || itemName == 'financial') {
         let listName = '';
         if (itemName == 'range') {
+          if (value){
+            // this.$refs['formInline'].resetValidateField('range')
+            this.$refs['formInline'].resetValidateField('financial')
+          }
           switch (value) {
             case this.linkLabelId['macro']:
               this.commonFiltersCopy.financial = '';
@@ -1004,8 +1040,11 @@ export default {
           this.addTags = [];
           listName = 'rangePlus';
           value = value ? value : '0';
-
         } else {
+          if (value){
+            this.$refs['formInline'].resetValidateField('range')
+            // this.$refs['formInline'].resetValidateField('financial')
+          }
           if (value == this.linkLabelId['bond'] || value == this.linkLabelId['forex'] || value == this.linkLabelId['derivative'] || value == this.linkLabelId['assets']) {
             this.labelListIndustry = [];
             this.delTags = [];//清空删除标签
@@ -1030,6 +1069,9 @@ export default {
       /**【金融市场细分】=美股1005000085  信息地域划分联动赋值：美国（原来无此值时）
        【金融市场细分】=港股  信息地域划分联动赋值：中国香港特别行政区（原来无此值时）
        **/
+      if (data.selecItem == 'financialPlus' && data.id == this.linkLabelId['american']){
+        this.commonFiltersCopy.range = '1005000006';
+      }
       if (data.id == this.linkLabelId['american'] || data.id == this.linkLabelId['hk']) {
         let labelAmerica = {
           businessCode: "337000000",
@@ -2511,6 +2553,8 @@ export default {
       ;
       this.addTags = [{...addobj}];
       this[this.addLabelType] = copyDeep(this[this.addLabelType].concat(this.addTags));
+      // 感觉可以删除
+      this.addTags = []
       if (msg) {
         this.$hMessage.success('添加成功');
         if (this.pageType != 'ADD') {
@@ -2667,9 +2711,9 @@ export default {
       if (this.contentReady) {
         //console.log('instanceReadyCallback');
         //保证已经完成数据更新，将缓存的内容赋值，触发编辑器update里面的setData
+        this.beforeCommonFilters.content = this.contentReadyData;
         this.commonFiltersCopy.content = this.contentReadyData;
       }
-      ;
       if (this.pageType == 'VIEW') return;
       editor.commands.labeloperate.exec = function (e) {
         let labelName = editor.getSelection().getSelectedText();
@@ -2678,26 +2722,25 @@ export default {
       editor.commands.labelAdd.exec = function (e) {
         let labelName = editor.getSelection().getSelectedText();
         _this.handleAddLabelInEditor('', labelName);
-      },
-        editor.commands.labelmain.exec = function (e) {
-          let myeditor = editor;
-          var labelName = editor.getSelection().getSelectedText();
-          if (labelName) {
-            _this.handleMainLabel(labelName, 1);
-          }
-        },
-        editor.commands.labelCancelMain.exec = function (e) {
-          let myeditor = editor;
-          var labelName = editor.getSelection().getSelectedText();
-          if (labelName) {
-            _this.handleMainLabel(labelName, 0);
-          }
-        },
-
+      }
+      editor.commands.labelmain.exec = function (e) {
+        let myeditor = editor;
+        var labelName = editor.getSelection().getSelectedText();
+        if (labelName) {
+          _this.handleMainLabel(labelName, 1);
+        }
+      }
+      editor.commands.labelCancelMain.exec = function (e) {
+        let myeditor = editor;
+        var labelName = editor.getSelection().getSelectedText();
+        if (labelName) {
+          _this.handleMainLabel(labelName, 0);
+        }
+      }
         editor.commands.paragraphFormat.exec = function (e) {
-          let myeditor = editor;
-          _this.handleParagraphFormat(myeditor);
-        },
+        let myeditor = editor;
+        _this.handleParagraphFormat(myeditor);
+        }
         editor.commands.labelCheck.exec = function (e) {
           let myeditor = editor;
           _this.handleLabelCheck(myeditor)
@@ -2814,14 +2857,27 @@ export default {
       this.labelTableList = [];
     },
     isShowSimilarFn() {
-      let realTimeQueryDupDetails = this.commonFiltersCopy.realTimeQueryDupDetails || [];
-      for (let item of realTimeQueryDupDetails) {
-        item.handleStatus = item.handleStatus || '未公开'
-        item.contentText = this.formContentSimilarFn(item.contentText) || ''
+      let {newsId} =  this.commonFiltersCopy
+      let body = {
+        newsId: newsId,
       }
-      this.similarList = realTimeQueryDupDetails
-      this.showSimilar = (realTimeQueryDupDetails.length > 1) ? true : false;
-      this.modalSimilar = (realTimeQueryDupDetails.length > 1) ? true : false;
+      getNewsSimilarList(body).then(
+        data => {
+            let realTimeQueryDupDetails = data.realTimeQueryDupDetails || [];
+            for (let item of realTimeQueryDupDetails) {
+              item.handleStatus = item.handleStatus || '未公开'
+              item.contentText = this.formContentSimilarFn(item.contentText) || ''
+            }
+            this.similarList = realTimeQueryDupDetails
+            this.showSimilar = (realTimeQueryDupDetails.length > 1) ? true : false;
+            this.modalSimilar = (realTimeQueryDupDetails.length > 1) ? true : false;
+        }
+      ).catch(
+        error => {
+          this.$hMessage.error(error.content)
+        }
+      )
+    
     },
     deleteSimilarItem(data) {
       let {index} = data
@@ -2897,6 +2953,8 @@ export default {
       this.$store.dispatch('getFinancialList', 'financialMarketList');
       this.$store.dispatch('getInfoLevelList', 'infoLevelList');
       this.$store.dispatch('getFormList', 'formList');
+      this.$store.dispatch('getSentimentList', 'sentimentList');
+      this.$store.dispatch('getNewsImportanceList', 'newsImportance');
     },
     getStorageFn() {
       let appListStorage = JSON.parse(sessionStorage.getItem("appList")) || null;//获取下拉列表缓存
@@ -2904,9 +2962,11 @@ export default {
       let rangeListStorage = JSON.parse(sessionStorage.getItem("rangeList")) || null;//
       let financialListStorage = JSON.parse(sessionStorage.getItem("financialMarketList")) || null;//
       let formListStorage = JSON.parse(sessionStorage.getItem("formList")) || null;//
+      let sentimentListStorage = JSON.parse(sessionStorage.getItem("sentimentList")) || null;//
+      let newsImportanceStorage =  JSON.parse(sessionStorage.getItem("newsImportance")) || null;//
 //			let opinionListCommentStorage = JSON.parse(sessionStorage.getItem("opinionListComment")) || null;//
 //			let opinionListRecommendStorage = JSON.parse(sessionStorage.getItem("opinionListRecommend")) || null;//
-      if (!appListStorage || !infoLevelListStorage || !rangeListStorage || !financialListStorage || !formListStorage) {
+      if (!appListStorage || !infoLevelListStorage || !rangeListStorage || !financialListStorage || !formListStorage || !sentimentListStorage || !newsImportanceStorage) {
         this.getCommonList();
       } else {
         this.$store.commit('GET_INFOLEVELLIST', infoLevelListStorage);
@@ -2914,6 +2974,8 @@ export default {
         this.$store.commit('GET_FINANCIALLIST', financialListStorage);
         this.$store.commit('GET_FORMLIST', formListStorage);
         this.$store.commit('GET_APPLIST', appListStorage);
+        this.$store.commit('GET_SENTIMENTLIST', sentimentListStorage);
+        this.$store.commit('GET_NEWSIMPORTANCELIST', newsImportanceStorage);
 //				this.$store.commit('GET_OPINIONLISTRECOMMEND',opinionListRecommendStorage);
 //				this.$store.commit('GET_OPINIONLISTCOMMENT',opinionListCommentStorage);
       }
@@ -3013,9 +3075,69 @@ export default {
     initReset() {
       this.initChange = true;
     },
+    checkSentiment(rule, val, callback){
+      if (this.newsTypeCopy != 1){
+         callback()
+         return
+      }
+      // 所属项目含有“债券舆情“”时，且范围=宏观 或 范围=行业 或 市场不为空时，为必填项
+      let {appIds, range, financial} = this.commonFiltersCopy
+      if(appIds.includes('5') && range == '1005000005'){
+        if(val){
+          callback()
+        }else{
+          callback(new Error("产经舆情新闻的【情感方向】不能为空！"))
+        }
+      }else{
+        callback()
+      }
+    },
+    checkNewsImportance(rule, val, callback){
+      if (this.newsTypeCopy != 1){
+         callback()
+         return
+      }
+      // 所属项目含有“债券舆情“”时，且范围=宏观 或 范围=行业 或 市场不为空时，为必填项
+      let {appIds, range, financial} = this.commonFiltersCopy
+      if(appIds.includes('5') && range == '1005000005'){
+        if(val){
+          callback()
+        }else{
+          callback(new Error("产经舆情新闻的【新闻重要程度】不能为空！"))
+        }
+      }else{
+        callback()
+      }
+    },
+    checkRange(rule, val, callback){
+      if (this.newsTypeCopy != 1){
+         callback()
+         return
+      }
+      // 所属项目包含债券舆情时，范围或者金融市场不能同时为空。
+      let {appIds, range, financial} = this.commonFiltersCopy
+      if(appIds.includes('5') && (!range && !financial)){
+        callback(new Error("范围或者金融市场不能同时为空"))
+      }else{
+        callback()
+      }
+    },
+    checkFinancial(rule, val, callback){
+      if (this.newsTypeCopy != 1){
+         callback()
+         return
+      }
+      // 所属项目包含债券舆情时，范围或者金融市场不能同时为空。
+      let {appIds, range, financial} = this.commonFiltersCopy
+      if(appIds.includes('5') && (!range && !financial)){
+        callback(new Error("范围或者金融市场不能同时为空"))
+      }else{
+        callback()
+      }
+    }
   },
   computed: {
-    ...mapState(['maxTableHeight', 'appList', 'infoLevelList', 'rangeList', 'financialMarketList', 'formList', 'autorOrgList', 'dsSourceList', 'mediaSourceList', 'sourceList']),
+    ...mapState(['maxTableHeight', 'appList', 'infoLevelList', 'rangeList', 'financialMarketList', 'formList', 'autorOrgList', 'dsSourceList', 'mediaSourceList', 'sourceList', 'sentimentList', 'newsImportanceList']),
     pageNumType() {
       let _type = 1
       if (this.isEventPage) {
@@ -3121,25 +3243,27 @@ export default {
     },
 
     commonFilters: {
-      handler(newObj, old) {
-        this.beforeCommonFilters = {};
-        this.commonFiltersCopy = {};
+      handler(newObj) {
         let tempObj = copyDeep(newObj);
-        if (!this.ckeditorReady) {
-          // tempObj.content = '';
-          this.contentReadyData = tempObj.content;//编辑器未加载完成，缓存新的内容，待加载完成后赋值
-        } else {
-          // this.commonFiltersCopy = tempObj;//编辑器加载完成，直接赋值，触发编辑器update
-        }
-        this.contentReady = true;
-        this.checkFirst = true
         let rangeValue = tempObj['range'] || '0';
         let financialValue = tempObj['financial'] || '1';
+        if(!this.ckeditorReady){
+          if (this.isEventPage){
+
+          }else{
+            tempObj.content = '';
+          }
+					this.contentReadyData = newObj.content;//编辑器未加载完成，缓存新的内容，待加载完成后赋值
+        }else{
+          this.commonFiltersCopy = {...newObj};//编辑器加载完成，直接赋值，触发编辑器update
+				};
         let a = this.getSubdivide('rangePlus', rangeValue);//范围细分列表
         let b = this.getSubdivide('financialPlus', financialValue);//金融市场细分列表
         Promise.all([a, b]).then(() => {
-          this.beforeCommonFilters = {...tempObj};
-          this.commonFiltersCopy = {...tempObj};
+          this.contentReady = true;
+          this.checkFirst = true
+          this.beforeCommonFilters = copyDeep(tempObj);
+          this.commonFiltersCopy = copyDeep(tempObj);
           this.addTags = [];
           this.showTopBtn = true;
           this.$nextTick(() => {
@@ -3167,8 +3291,6 @@ export default {
           this.formContentTextFn(true);//格式化纯文本
           if (this.newsTypeCopy == '1' && this.pageType == 'HANDLE') {
             this.isShowSimilarFn();	//是否显示相似资讯弹框
-          }
-          if (this.newsTypeCopy == '1' && this.pageType == 'HANDLE') {
             this.overplusTime = this.commonFiltersCopy.overplusTime
             this.timeToDown()
           }
@@ -3176,6 +3298,12 @@ export default {
             this.syncTxt(newObj.content)
           }
         })
+        setTimeout(() => {
+          this.$refs['formInline']&&this.$refs['formInline'].resetValidate()
+        }, 100);
+        // this.$nextTick(()=>{
+        //   this.$refs['formInline']&&this.$refs['formInline'].resetValidate()
+        // })
       },
       deep: true
     },
@@ -3185,8 +3313,8 @@ export default {
         this.setMsgContent(false)
         // 只有主表编辑
         if (this.handleStatus == '1' && this.pageType == 'HANDLE' && this.newsTypeCopy == '1') {
-          let beforemd5 = this.$md5(JSON.stringify(this.beforeCommonFilters).replace(/null/g, '""').replace(/\n/g, ''))
-          let objmd5 = this.$md5(JSON.stringify(obj).replace(/null/g, '""').replace(/\n/g, ''))
+          let beforemd5 = this.$md5(JSON.stringify(this.beforeCommonFilters).replace(/null/g, '""').replace(/\n/g, '').replace(/&nbsp;/gi, '').replace(/\s+/g, ""))
+          let objmd5 = this.$md5(JSON.stringify(obj).replace(/null/g, '""').replace(/\n/g, '').replace(/&nbsp;/gi, '').replace(/\s+/g, ""))
           if (beforemd5 != objmd5) {
             this.detailIsChange = true
             this.setMsgContent(true)
@@ -3214,11 +3342,11 @@ export default {
   },
 
   activated: function () {
-    this.ckeditorReady = false,//初始化ckEditor加载完成标记
-      this.contentReady = false,//初始化编辑器内容加载完成标记
-      this.contentReadyData = '';//编辑器内容加载完成
+    this.ckeditorReady = false;//初始化ckEditor加载完成标记
+    this.contentReady = false;//初始化编辑器内容加载完成标记
+    this.contentReadyData = '';//编辑器内容加载完成
     this.showVueCkeditor = true;
-    ;//解决tab切换白屏问题
+    //解决tab切换白屏问题
     this.initChange = true;//范围 金融市场change不触发
     this.loadingSearchAutorOrg = this.autorOrgList.length ? false : true;//初始化撰写机构提示框
     this.loadingSearchTxt = this.autorOrgList.length ? '' : '请输入搜索';//初始化撰写机构提示框

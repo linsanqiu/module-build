@@ -52,8 +52,8 @@
 				indicatorTags:[],
 				regionTags:[],
 				secuTags:[],
-				hiddenItemArrDefault:['newsId'],
-				hiddenItemArrFastNews:['newsId','dsNewsColumns','tradingMarket','mediaSource','mediaSourceCode','layoutNumber','layoutInfo','author','authorOrg','authorOrgCode','rangePlus','form','subtitle', 'summary','labelListConcept','labelListIndicator','labelListIndustry','conclusion','opinionType'],
+				hiddenItemArrDefault:['newsId','sentiment', 'newsImportance'],
+				hiddenItemArrFastNews:['newsId','dsNewsColumns','tradingMarket','mediaSource','mediaSourceCode','layoutNumber','layoutInfo','author','authorOrg','authorOrgCode','rangePlus','form','subtitle', 'summary','labelListConcept','labelListIndicator','labelListIndustry','conclusion','opinionType','sentiment', 'newsImportance'],
 				showBtns:['delete','save','publish','pre','next'],
 				ruleInlineSpecial: {
 					themeId: [

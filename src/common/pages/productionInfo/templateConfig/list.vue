@@ -36,12 +36,12 @@
 									<span>关闭</span>
 								</div>
 							</h-switch>
-						</h-tooltip>		 		
+						</h-tooltip>
 					</li>
 				</ul>
 			</search-form>
-		</div>		
-		<div class="tab-box tag-relotion-tab-box">					
+		</div>
+		<div class="tab-box tag-relotion-tab-box">
 			<h-table
 				class="full-max-height-table"
 				size="small"
@@ -53,12 +53,12 @@
 				@on-row-dblclick="handleDbclick"
 				border>
 			</h-table>
-			<h-page highlight-row size="small" show-elevator show-total show-sizer placement="top" class="page-box"  :total="total" :current="pagination.currentPage" :page-size-opts="pageSizeOpts" @on-page-size-change="onPageSizeChange"  :page-size="pagination.pageSize" @on-change="onPageChange" ></h-page>			
+			<h-page highlight-row size="small" show-elevator show-total show-sizer placement="top" class="page-box"  :total="total" :current="pagination.currentPage" :page-size-opts="pageSizeOpts" @on-page-size-change="onPageSizeChange"  :page-size="pagination.pageSize" @on-change="onPageChange" ></h-page>
 		</div>
 	</div>
 </template>
 
-<script>	
+<script>
 	export default{
 		name:'ProductionInfoTemplateConfigList',
 		data(){
@@ -72,7 +72,7 @@
 					bizType: '',
 				},
 				pageSizeOpts:[10,20,50,100],
-				total:0,				
+				total:0,
 				tableLoading:false,
 				commonTableDatas:[],
 				bizTypeList:[],
@@ -97,7 +97,7 @@
 						key: "modifierName",
 						title: "修改人",
 						width: 200,
-						align: "center"						 
+						align: "center"
 					},
 					{
 						key: "updateTime",
@@ -142,13 +142,13 @@
 //										btnCon = `icon-view`;
 //										showBtn = this.activeRoutersButton.indexOf('template_viewBtn') == -1 ? true : false;
 //										break;
-									case 2:							 
+									case 2:
 										operateUrl = ``;
 										routerPath = `/productionInfo/templateConfig/add`;
 										btnCon = `icon-t-b-message`;
 										showBtn = this.activeRoutersButton.indexOf('template_editBtn') != -1 ? true : false;
-										break;	
-									 
+										break;
+
 									case 3:
 										operateUrl = `/pic/audit/tmpl/remove?id=`+id;
 										routerPath = ``;
@@ -169,7 +169,7 @@
 										},
 										class: [
 											 btnCon,
-											'iconfont',	                                     
+											'iconfont',
 											'tab-icon-btn'
 										],
 										on: {
@@ -186,7 +186,7 @@
 														}
 													})
 												};
-												 
+
 											}
 										}
 									});
@@ -212,7 +212,7 @@
 				this.getInfoList();
 			},
 			addFn(){
-				this.$router.push({path:'/productionInfo/templateConfig/add'});	
+				this.$router.push({path:'/productionInfo/templateConfig/add'});
 			},
 			handleDelete(url,id){
 				this.$http.get(url).then((res) => {
@@ -221,8 +221,8 @@
 						 this.$hMessage.info({
 							content: '删除成功',
 							duration: 3
-						})   	 
-						this.handleSearch();	                 
+						})
+						this.handleSearch();
 					}else{
 						this.$hMessage.error({content: data.msg})
 					}
@@ -240,8 +240,8 @@
 				this.$http.post(url, this.pagination).then((res) => {
 					let data = res.data;
 					if(data.status == this.$api.SUCCESS){
-						this.commonTableDatas = data.body.dataList || [];	                	
-						this.total = data.body.totalSize;		                 
+						this.commonTableDatas = data.body.dataList || [];
+						this.total = data.body.totalSize;
 					}else{
 						this.$hMessage.error({content: data.msg})
 					}

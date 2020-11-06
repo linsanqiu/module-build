@@ -46,7 +46,7 @@ export default {
       indicatorTags: [],
       regionTags: [],
       secuTags: [],
-      hiddenItemArrDefault: ["newsId"],
+      hiddenItemArrDefault: ["newsId",'sentiment', 'newsImportance'],
       hiddenItemArrFastNews: [
         "newsId",
         "dsNewsColumns",
@@ -66,7 +66,9 @@ export default {
         "labelListIndicator",
         "labelListIndustry",
         "conclusion",
-        "opinionType"
+        "opinionType",
+        'sentiment', 
+        'newsImportance'
       ],
       hiddenItemArr: [
         "themeId",
@@ -88,7 +90,9 @@ export default {
         "labelListIndicator",
         "labelListIndustry",
         "conclusion",
-        "opinionType"
+        "opinionType",
+        'sentiment', 
+        'newsImportance'
       ],
       showBtns: ["pre", "next"],
       ruleInlineSpecial: {},

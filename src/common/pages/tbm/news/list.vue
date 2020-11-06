@@ -168,6 +168,12 @@
 						}
 					},
 					{
+						key: "mediaSourceCode",
+						title: "媒体出处常量",
+						width: 150,
+						align: "center"
+					},
+					{
 						key: "dsNewsColumns",
 						title: "资讯原始栏目",
 						width: 200,
@@ -225,11 +231,6 @@
 						width: 150,
 						align: "center",
 						sortable:'custom'
-					},{
-						key: "mediaSourceCode",
-						title: "媒体出处常量",
-						width: 150,
-						align: "center"
 					},
 					{
 						key: "layoutInfo",
@@ -565,7 +566,7 @@
 				})
 			},
 			getHandleUser(){
-	    		let url = '/tm/news/handleuserlist?newsType='+this.searchData.newsType; 		
+	    		let url = '/tm/news/getalluers?newsType='+this.searchData.newsType; 		
 	            this.$http.get(url).then((res) => {
 	            	let data = res.data;
 	                if(data.status == this.$api.SUCCESS){

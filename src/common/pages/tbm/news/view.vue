@@ -83,6 +83,8 @@
 						this.commonFilters.form= this.commonFilters.formName;
 						this.commonFilters.range= this.commonFilters.rangeName;
 						this.commonFilters.rangePlus= this.commonFilters.rangePlusName;
+						this.commonFilters.newsImportance= this.commonFilters.newsImportanceDesc;
+						this.commonFilters.sentiment= this.commonFilters.sentimentDesc;
 //						this.commonFilters.contentText = this.commonFilters.contentText.replace(/\n/ig,"<br/>").replace(/\r/ig,"<br/>");
 	               		this.labelList = this.commonFilters.corpTags;
 		               	this.industryTags = this.commonFilters.industryTags;

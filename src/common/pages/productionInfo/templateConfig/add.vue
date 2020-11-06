@@ -16,7 +16,8 @@
               v-for="(option, index) in bizTypeList"
               :value="option.entryValue"
               :key="option.entryOrder"
-            >{{ option.entryName }}</Option>
+            >{{ option.entryName }}
+            </Option>
           </Select>
         </dd>
       </dl>
@@ -35,7 +36,8 @@
               :value="option.entryValue"
               :key="option.entryValue"
               v-if="(req && req.id) || option.status == 0"
-            >{{ option.entryName }}</Option>
+            >{{ option.entryName }}
+            </Option>
           </Select>
           <span
             class="red"
@@ -69,18 +71,19 @@
                   prop="name"
                 >
                   <Select
-				  	class="grouping"
+                    class="grouping"
                     v-model="item.bizGroupCode"
                     placeholder="请选择业务属性"
                     :clearable="false"
-                    :disabled='configs[k].rowList.length > 0 || configs[k].colList.length > 0'
+                    :disabled='configs[k].rowList.length > 0 || configs[k].colList.length > 0 || !req.bizType'
                     @on-change='bizGroupCodeChange($event, k)'
                   >
                     <Option
                       v-for="(option, index) in bizGroups"
                       :value="option.bizGroupCode"
                       :key="index"
-                    >{{ option.bizGroupName}}</Option>
+                    >{{ option.bizGroupName }}
+                    </Option>
                   </Select>
                   <span
                     v-if='configs.length > 1'
@@ -95,12 +98,13 @@
             <config
               v-model="configs[k]"
               :index="k"
+              :bizTmplGroups="bizGroups"
               :bizTypeList='bizTypeList'
               :fieldTypeList="fieldType"
               :attrList='bizGroups'
               :DictItem="DictItem"
               :SearchDict="SearchDict"
-              :fieldGroupTypeList='fieldGroupTypeList'
+              :bizGroupTypeList='bizGroupTypeList'
             ></config>
           </div>
         </dd>
@@ -133,12 +137,14 @@
         type="info"
         :disabled="!(req.anncType && configs[0] && (configs[0].rowList.length > 0 || configs[0].colList.length >0))"
         @click="onSubmit()"
-      >保存</h-button>
+      >保存
+      </h-button>
       <h-button
         type="info"
         :disabled="!(configs[0] && (configs[0].rowList.length > 0 || configs[0].colList.length >0))"
         @click="onSubmit(true)"
-      >预览</h-button>
+      >预览
+      </h-button>
     </div>
     <h-msgBox
       title="预览"
@@ -210,14 +216,15 @@ import config from "../components/config";
 import Verification from "../components/verification";
 import ReplaceRules from "../components/replaceRules";
 import $ from "jquery";
-import { copyDeep } from "@/filters/index";
+import {copyDeep} from "@/filters/index";
 import {
   getTempGroups,
   getDictList
 } from "../api/apiManager";
+
 export default {
   name: "ProductionInfoTemplateConfigAdd",
-  components: { tableTemplate, config, tableTem, Verification, ReplaceRules },
+  components: {tableTemplate, config, tableTem, Verification, ReplaceRules},
   data() {
     return {
       maxSum: 100,
@@ -229,7 +236,7 @@ export default {
           rowList: [],
           colList: [],
           bizGroupCode: "",
-          fieldGroupType: "",
+          bizGroupType: "",
         },
       ],
       alltemplate: [],
@@ -237,7 +244,6 @@ export default {
       colList: [],
       isMenu: false,
       itemName: "",
-      fieldType: [],
       isShowSave: false,
       activeItem: "",
       activeInex: "",
@@ -326,7 +332,7 @@ export default {
       // ],
       // verfiyList: [],
       bizGroups: [],
-      fieldGroupTypeList: [],
+      bizGroupTypeList: [],
     };
   },
   methods: {
@@ -364,7 +370,7 @@ export default {
     addGroup() {
       this.configs.push({
         bizGroupCode: "",
-        fieldGroupType: "",
+        bizGroupType: "",
         colList: [],
         rowList: [],
         bizGroupName: "",
@@ -414,7 +420,7 @@ export default {
             this.commonTableDatas = data.dataList || [];
             this.total = total;
           } else {
-            this.$hMessage.error({ content: data.msg });
+            this.$hMessage.error({content: data.msg});
           }
           this.tableLoading = false;
         })
@@ -428,12 +434,15 @@ export default {
       this.isImportMsg = true;
     },
     changeBizType(value) {
-      if (!value)return
+      this.configs.forEach(item => {
+        item.bizGroupCode = ''
+      })
+      if (!value) return
       this.template = this.bizTypeObj[value.toString()];
-      let body = {
-        bizType: value
-      }
-      getTempGroups(body).then(
+    },
+    // 获取业务属性
+    getBizGroups() {
+      getTempGroups({}).then(
         data => {
           this.bizGroups = data.bizGroups || []
         }
@@ -443,28 +452,28 @@ export default {
         }
       )
     },
-    bizGroupCodeChange(value, index){
-      if (this.bizGroups.length == 0){
+    bizGroupCodeChange(value, index) {
+      if (this.bizGroups.length == 0) {
         return
       }
-      let fieldGroupType = 1
+      let bizGroupType = 1
       let bizGroupName = ''
-      for (let item of this.bizGroups){
-        if (item.bizGroupCode == value){
-          fieldGroupType = item.fieldGroupType
+      for (let item of this.bizGroups) {
+        if (item.bizGroupCode == value) {
+          bizGroupType = item.bizGroupType
           bizGroupName = item.bizGroupName
         }
       }
       this.configs[index].bizGroupName = bizGroupName
-      this.configs[index].fieldGroupType = fieldGroupType
+      this.configs[index].bizGroupType = bizGroupType
     },
-    getBizGroupTypeList(){
+    getBizGroupTypeList() {
       let body = {
         dictCode: 'FIELD_GROUP_TYPE',
       };
       getDictList(body).then(
         data => {
-          this.fieldGroupTypeList = data.dictList || []
+          this.bizGroupTypeList = data.dictList || []
         }
       ).catch(
         error => {
@@ -545,7 +554,7 @@ export default {
       if (isImport && obj) {
         anncType = obj.anncType;
         bizType = obj.bizType;
-        this.$set(this.req, 'bizType', bizType.toString())  
+        this.$set(this.req, 'bizType', bizType.toString())
       } else {
         if (this.isLoading) return;
         this.isLoading = true;
@@ -570,9 +579,9 @@ export default {
                 this.template = this.bizTypeObj[data.bizType.toString()] || [];
               }
             }
-            if (!data.groupList || data.groupList.length == 0){
-              this.configs  = [{ bizGroupCode: "", colList: [], rowList: [] },]
-            }else{
+            if (!data.groupList || data.groupList.length == 0) {
+              this.configs = [{bizGroupCode: "", colList: [], rowList: []},]
+            } else {
               this.configs = copyDeep(data.groupList)
             }
             if (cb) {
@@ -642,7 +651,7 @@ export default {
       });
     },
     init() {
-      let { anncType, bizType } = this.$route.query;
+      let {anncType, bizType} = this.$route.query;
       if (anncType) {
         this.setRouteName("【编辑】公告模板");
         if (this.req.anncType == anncType && this.req.bizType == bizType)
@@ -665,7 +674,7 @@ export default {
               rowList: [],
               colList: [],
               bizGroupCode: "",
-              fieldGroupType: 1,
+              bizGroupType: 1,
             },
           ]);
       }
@@ -709,11 +718,11 @@ export default {
           this.$hMessage.error("网络错误，获取常量搜索项下拉框失败");
         });
     },
-    deleteGroup(index, item){
+    deleteGroup(index, item) {
       this.$hMsgBox.confirm({
-				isOkLeft:true,
-				title: '删除业务分组',
-				content: `是否删除${item.bizGroupName}业务分组`,
+        isOkLeft: true,
+        title: '删除业务分组',
+        content: `是否删除${item.bizGroupName}业务分组`,
         onOk: () => {
           this.configs.splice(index, 1)
         }
@@ -749,6 +758,7 @@ export default {
   },
   mounted() {
     this.getBizGroupTypeList()
+    this.getBizGroups();
     this.getBizType();
     this.getDictItem();
     this.getInfoList();
@@ -765,45 +775,56 @@ export default {
 dl + dl {
   margin-top: 20px;
 }
+
 dt,
 dd {
   display: inline-block;
   vertical-align: top;
 }
+
 dt {
   line-height: 30px;
   width: 60px;
 }
+
 dd {
   width: calc(100% - 64px);
 }
+
 .table-box {
   position: relative;
 }
+
 .table-wrapper {
   overflow-x: auto;
 }
+
 .table-wrapper-max table {
   width: 100%;
 }
+
 table {
   table-layout: fixed;
 }
+
 table td {
   border: 1px solid #dce1e7;
   width: 120px;
   height: 30px;
   text-align: center;
 }
+
 table thead td:first-child {
   background: #fff;
 }
+
 td div {
   height: 100%;
   width: 100%;
   line-height: 30px;
   position: relative;
 }
+
 td div span {
   position: absolute;
   left: 0;
@@ -816,6 +837,7 @@ td div span {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .menu {
   position: absolute;
   padding: 5px 10px;
@@ -827,62 +849,78 @@ td div span {
   box-shadow: 1px 1px 2px #ccc;
   color: #000;
 }
+
 .menu li:hover {
   color: #2e71f2;
   cursor: pointer;
 }
+
 .menu li.disabled,
 .menu li.disabled:hover {
   color: #ccc;
   cursor: auto;
 }
+
 .add {
   background: #2e71f2;
   color: #fff;
   cursor: pointer;
 }
+
 .btn {
   padding: 20px;
   text-align: center;
 }
+
 td div {
   background: palegreen;
 }
+
 td div.err {
   background-color: rgb(244, 115, 120);
 }
+
 .red {
   color: red;
 }
+
 .templateConfig {
   min-height: 99%;
   position: relative;
 }
+
 .preview-msg-box {
   overflow: auto;
   max-height: 350px;
 }
+
 >>> .import-msg-box .tab-operation {
   transform: rotatex(180deg);
 }
+
 .config-wrapper {
   padding: 10px;
   border: 1px solid #dfdfdf;
 }
+
 .grouping {
   width: 200px;
 }
+
 .config-wrapper .icon-t-b-delete {
   margin-left: 5px;
   cursor: pointer;
 }
+
 .config-wrapper .icon-t-b-delete:hover {
   color: rgb(245, 34, 45);
 }
+
 .deleteBtn {
   color: #298dff;
   cursor: pointer;
 }
+
 .deleteBtn:hover {
   color: #0067dc;
 }

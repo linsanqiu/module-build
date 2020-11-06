@@ -528,7 +528,7 @@ export default {
       this.searchData.updateTimeEnd = values[1];
     },
     getHandleUser() {
-      let url = "/tm/news/handleuserlist?newsType=" + this.searchData.newsType;
+      let url = "/tm/news/getalluers?newsType=" + this.searchData.newsType;
       this.$http
         .get(url)
         .then(res => {

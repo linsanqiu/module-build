@@ -47,7 +47,7 @@
 				indicatorTags:[],
 				regionTags:[],
 				secuTags:[],
-				hiddenItemArr:['themeId','appIds','dsNewsColumns','tradingMarket','layoutNumber','layoutInfo','author','authorOrg','authorOrgCode','rangePlus','form','subtitle', 'summary','labelListConcept','labelListIndicator','labelListIndustry','conclusion','opinionType','imageUrl'],
+				hiddenItemArr:['themeId','appIds','dsNewsColumns','tradingMarket','layoutNumber','layoutInfo','author','authorOrg','authorOrgCode','rangePlus','form','subtitle', 'summary','labelListConcept','labelListIndicator','labelListIndustry','conclusion','opinionType','imageUrl','sentiment', 'newsImportance'],
 				showBtns:['delete','save','publish','pre','discard','newCopyPage','allLabel'],
 				updateFlag:false,
 				isProcess:false,

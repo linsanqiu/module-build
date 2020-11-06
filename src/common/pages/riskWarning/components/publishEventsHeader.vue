@@ -294,9 +294,9 @@
 
         <li>
           <dl>
-            <dt>处理人员：</dt>
+            <dt>最后处理人员：</dt>
             <dd>
-              <h-simple-select placeholder="请选择处理人员" filterable v-model="searchData.processor">
+              <h-simple-select placeholder="请选择最后处理人员" filterable v-model="searchData.processor">
                 <h-select-block :data="dealUserList"></h-select-block>
               </h-simple-select>
             </dd>

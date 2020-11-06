@@ -66,7 +66,7 @@
 				conceptTags:[],
 				regionTags:[],
 				secuTags:[],
-				hiddenItemArr:['themeId','appIds','dsNewsColumns','tradingMarket','newsId','layoutNumber','layoutInfo','author','authorOrg','authorOrgCode','rangePlus','form','subTitle', 'summary','labelListConcept','labelListIndicator','labelListIndustry','conclusion','opinionType','imageUrl'],
+				hiddenItemArr:['themeId','appIds','dsNewsColumns','tradingMarket','newsId','layoutNumber','layoutInfo','author','authorOrg','authorOrgCode','rangePlus','form','subTitle', 'summary','labelListConcept','labelListIndicator','labelListIndustry','conclusion','opinionType','imageUrl','sentiment', 'newsImportance'],
 				showBtns:['save','publish','allLabel']
 			}
 		},

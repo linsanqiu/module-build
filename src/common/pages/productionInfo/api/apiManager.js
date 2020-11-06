@@ -68,6 +68,9 @@ const getDictList = params => {
 const checkVerifyData = params => {
     return post(apiUrl.CHECK_VERIFY_DATA, params)
 }
+const checkVerifyDataFromList = params => {
+    return post(apiUrl.CHECK_VERIFY_DATA_FROM_LIST, params)
+}
 
 const getFieldCode = params => {
     return get(apiUrl.GET_FIELD_CODE, params)
@@ -92,6 +95,11 @@ const searchProdList = params => {
 const judjeLock = params => {
     return get(apiUrl.JUDJE_LOCK, params)
 }
+
+// 获取产品数据一览表头
+const getTableHeader = params => {
+    return post(apiUrl.GET_TABLE_HEADER, params)
+}
 export{
     getRowListFromBusinessCode,
     proDataList,
@@ -108,6 +116,7 @@ export{
     getBizTypeList,
     getDictList,
     checkVerifyData,
+    checkVerifyDataFromList,
     getFieldCode,
     getProdData,
     saveProdData,
@@ -116,5 +125,6 @@ export{
     getFieldVerify,
     saveOrModifyVerifyRule,
     searchProdList,
-    judjeLock
+    judjeLock,
+    getTableHeader
 }

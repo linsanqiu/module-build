@@ -123,7 +123,8 @@ const actions = {
 			    commit('GET_NEWSOPENFLAGS', data.body.tbmDictList);				 
 			}
 		});		 
-    }, 
+	}, 
+
     getProcessingStates({commit},list){	
 		http.get('/tm/tbmDictList?dictCode=' + 1100).then((res) => {
 			let data = res.data;
@@ -195,6 +196,33 @@ const actions = {
 		        }); 
 		         sessionStorage.setItem(list, JSON.stringify(newlist)); 
 			    commit('GET_FORMLIST', newlist);				 
+			}
+		});		 
+	},
+	getEventTypeList({commit},list){	
+		http.get('/tm/tbmDictList?dictCode=' + 1133).then((res) => {
+			let data = res.data;
+			if (data.status == api.SUCCESS) {
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList)); 
+			    commit('GET_EVENTTYPELIST', data.body.tbmDictList);				 
+			}
+		});		 
+    },
+	getSentimentList({commit},list){	
+		http.get('/tm/tbmDictList?dictCode=' +1131).then((res) => {
+			let data = res.data;
+			if (data.status == api.SUCCESS) {
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));  
+			    commit('GET_SENTIMENTLIST',  data.body.tbmDictList);				 
+			}
+		});		 
+	},
+	getNewsImportanceList({commit},list){	
+		http.get('/tm/tbmDictList?dictCode=' +1132).then((res) => {
+			let data = res.data;
+			if (data.status == api.SUCCESS) {
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));  
+			    commit('GET_NEWSIMPORTANCELIST', data.body.tbmDictList);				 
 			}
 		});		 
     },

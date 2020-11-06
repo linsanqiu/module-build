@@ -43,7 +43,7 @@
 				indicatorTags:[],
 				regionTags:[],
 				secuTags:[],
-				hiddenItemArr:['newsId','themeId','appIds','dsNewsColumns','tradingMarket','layoutNumber','layoutInfo','author','authorOrg','authorOrgCode','rangePlus','form','subtitle', 'summary','labelListConcept','labelListIndicator','labelListIndustry','conclusion','opinionType','imageUrl'],
+				hiddenItemArr:['newsId','themeId','appIds','dsNewsColumns','tradingMarket','layoutNumber','layoutInfo','author','authorOrg','authorOrgCode','rangePlus','form','subtitle', 'summary','labelListConcept','labelListIndicator','labelListIndustry','conclusion','opinionType','imageUrl' ,'sentiment', 'newsImportance'],
 				showBtns:['publish','allLabel']
 			}
 		},

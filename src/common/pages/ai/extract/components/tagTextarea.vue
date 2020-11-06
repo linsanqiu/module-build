@@ -196,9 +196,13 @@ export default {
       node.focus();
     },
     handleInput(target) {
+      let html = target.innerHTML;
+      let text = target.innerText;
+      html = html.replace(/^\s+|\s+$/g,'');
+      text = text.replace(/^\s+|\s+$/g,'');
       // 即时更新数据
-      this.updateData(target.innerHTML);
-      this.currentText = target.innerText;
+      this.updateData(html);
+      this.currentText = text;
       this.checkFormError();
     },
     // 监听“删除”事件

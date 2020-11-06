@@ -17,7 +17,15 @@ export default {
 			let list = this.tabs;
 			for (var i in list) {
 				var name = pathName(list[i]);
-				comps.push(name);
+				let str = name.substring(name.length-1, name.length)
+				if(!/^\d+$/.test(str)){
+
+				}else{
+					name = name.substring(0, name.length-1)
+				}
+				if (!comps.includes(name)){
+					comps.push(name);
+				}
 			}
 			return comps;
 		}

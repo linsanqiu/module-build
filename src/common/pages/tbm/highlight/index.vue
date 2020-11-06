@@ -295,7 +295,7 @@
 			},
 			//获取创建人员列表
 			getCreateUser(){
-	    		let url = '/tm/news/handleuserlist'   		
+	    		let url = '/tm/news/getalluers'   		
 	            this.$http.get(url).then((res) => {
 	            	let data = res.data;
 	                if(data.status == this.$api.SUCCESS){

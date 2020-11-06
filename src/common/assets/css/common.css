@@ -19,9 +19,9 @@ html,#app{
 body{
 	height: 100%;
 }
-body{
-	height: calc(100% - 1px);
-}
+/*body{*/
+/*	height: calc(100% - 1px);*/
+/*}*/
 ::-webkit-scrollbar {
 	height: 8px;
 	width: 8px;

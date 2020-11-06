@@ -11,7 +11,7 @@
 									<span :title="nameFormat(item, key, 'row')">{{ nameFormat(item, key, 'row') }}</span>
 								</div>
 							</td>
-							<td v-if="fieldGroupType == 1 && rowList.length < maxSum && colList.length == 0"><div class="add" @click="row" >+</div></td>
+							<td v-if="bizGroupType == 1 && rowList.length < maxSum && colList.length == 0"><div class="add" @click="row" >+</div></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -24,7 +24,7 @@
 							<td v-for="(item,key) in rowList">
 							</td>
 						</tr>
-						<tr v-if="fieldGroupType == 2 && colList.length < maxSum && rowList.length == 0">
+						<tr v-if="bizGroupType == 2 && colList.length < maxSum && rowList.length == 0">
 							<td><div class="add" @click="col">+</div></td>
 						</tr>
 					</tbody>
@@ -41,6 +41,7 @@
 			</ul>
 		</div>
 		<ConfigModal
+      :bizTypeDisabled="true"
 			:bizTypeList='bizTypeList'
 			:attrList="attrList"
 			v-model='isShowSave'
@@ -51,7 +52,7 @@
 			:SearchDict='SearchDict'
 			:detailsConfigType='true'
 			@changeAttr='onOk'
-			:fieldGroupTypeList='fieldGroupTypeList'
+			:bizGroupTypeList='bizGroupTypeList'
 		></ConfigModal>
 		<!-- <h-msgBox title="编辑属性" v-model="isShowSave" @on-close="onCloseFileMsgBox" class-name="vertical-center-modal" :top="0" width="500">
 			<div class="file-form">
@@ -115,9 +116,9 @@ import {
 } from "../api/apiManager";
 export default {
 	components: {ConfigModal},
-	props: {	
-		
-		fieldGroupTypeList: {
+	props: {
+
+		bizGroupTypeList: {
 			type: Array,
 			default: ()=>{
 				return [];
@@ -125,7 +126,7 @@ export default {
 		},
 		parentRefs:{
 			type: String,
-			default: 'templateConfig' 
+			default: 'templateConfig'
 		},
 		index:{
 			type: [String, Number],
@@ -212,7 +213,7 @@ export default {
 			NotSelectedtemplate: [],
 			isShowTips: false,
 			alltemplate: [],
-			fieldGroupType: 1,
+			bizGroupType: 1,
 			rowList: [],
 			colList:[],
 			isMenu: false,
@@ -223,9 +224,9 @@ export default {
 			},
 			rightMenuStyle:{},
 			form:{
-				fieldGroupType: 1,
+				bizGroupType: 1,
 				bizGroupCode: '',
-				bizType: "",
+				bizTypes: [],
 				id: "", //字段id
 				fieldName: "", //字段名
 				fieldCode: "", //字段编码
@@ -395,8 +396,8 @@ export default {
 			let data = this[name][this.activeInex];
 			if(data.fieldName){
 				let formData = copyDeep(data)
-				formData.bizType = formData.bizType.toString()
 				this.form = formData
+        this.form.bizTypes = this.form.bizTypes || [];
 				this.form.length = this.form.length === 0 || this.form.length === '0' || this.form.length ? this.form.length.toString() : '';
 			}else{
 				this.resetFileForm()
@@ -409,8 +410,8 @@ export default {
 			this.form = {
 				repRules: [],
 				verifyRules: [],
-				fieldGroupType: 1,
-				bizType: "", //业务类型
+				bizGroupType: 1,
+				bizTypes: [], //业务类型
 				bizGroupCode:"", //业务属性
 				id: "", //字段id
 				templateId: "", //模板ID
@@ -533,13 +534,13 @@ export default {
 			if (!pass)return
 			this.colList.push({})
 		},
-		init(data){
+    init(data){
 			this.rowList = data.rowList || [];
 			this.colList = data.colList || [];
-			this.fieldGroupType = data.fieldGroupType || 1
+			this.bizGroupType = data.bizGroupType || 1
 			this.bizGroupCode = data.bizGroupCode || ''
 			this.getAttrListByBizCode()
-			
+
 		},
 		changeValue(){
 			let obj = {
@@ -552,19 +553,20 @@ export default {
 		},
 		checkGroupCode(){
 			if (!this.value.bizGroupCode){
-				this.$hMessage.error('请先选择业务类型')
+				this.$hMessage.error('请先选择业务属性')
 				return false
 			}
 			return true
 		},
 		getAttrListByBizCode(){
-			if (!this.value.bizGroupCode || !this.value.fieldGroupType){
+			if (!this.value.bizGroupCode || !this.value.bizGroupType){
 				return
 			}
 			let body = {
 				bizGroupCode: this.value.bizGroupCode,
-				fieldGroupType: this.value.fieldGroupType,
-			}
+				bizGroupType: this.value.bizGroupType,
+        bizType: this.$parent.req.bizType
+      }
 			getRuleAttrByBizCode(body).then(
 				data => {
 					let attrList = []
@@ -599,9 +601,9 @@ export default {
 			},
 			deep: true
 		},
-		'value.fieldGroupType': {
+		'value.bizGroupType': {
 			handler(value){
-				this.fieldGroupType = value || 1;
+				this.bizGroupType = value || 1;
 			},
 			deep: true
 		},
@@ -615,7 +617,7 @@ export default {
 		},
 		DictItem:{
 			handler(newObj){
-				
+
 			},
 			deep: true
 		},

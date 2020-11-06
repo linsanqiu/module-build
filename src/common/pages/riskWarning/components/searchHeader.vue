@@ -104,6 +104,7 @@
               <h-select
                 :placeholder="placeholders.announcement"
                 v-model="searchData.anncTypeList"
+                filterable
               >
                 <h-option
                   v-for="(item, i) in noticeTypeList"
@@ -155,7 +156,7 @@
         </li>
         <li>
           <dl>
-            <dt>处理人员：</dt>
+            <dt>最后处理人员：</dt>
             <dd>
               <h-simple-select
                 :placeholder="placeholders.dealName"
@@ -210,7 +211,7 @@ export default {
         bond: "涉及证券",
         announcement: "请选择公告类别",
         linkP: "请输入链接地址",
-        dealName: "请选择处理人",
+        dealName: "请选择最后处理人员",
         company: "请选择涉及公司",
         mediaSource: "请选择媒体出处",
         title: "请选择公告标题",

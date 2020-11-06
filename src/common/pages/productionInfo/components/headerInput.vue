@@ -66,12 +66,14 @@
         v-model='selectValue'
         filterable
         transfer
+        multClearable
         autoPlacement
         :disabled="disabled"
         placeholder="请选择"
         @on-change="changeValue($event, 4)"
         multiple
         collapseTags
+        widthAdaption
       >
         <h-option
           v-for="(item, i) in select"
@@ -86,7 +88,6 @@
         :disabled="disabled"
         transfer
         remote
-        filterable
         :isComputed="isComputed"
         :remote-method="changeQueryFn"
         :loading="loadingSelect"
@@ -96,6 +97,9 @@
         multiple
         @on-scroll="scrollFn"
         collapseTags
+        multClearable
+        filterable
+        widthAdaption
       >
         <h-option
             v-for="(item, i) in selectblock"
@@ -104,22 +108,6 @@
           >{{ item.label }}
         </h-option>
        </h-select>
-      <!-- <h-simple-select
-        v-model='selectValue'
-        :disabled="disabled"
-        transfer
-        remote
-        filterable
-        :isComputed="isComputed"
-        :remote-method="changeQueryFn"
-        :loading="loadingSelect"
-        autoPlacement
-        placeholder="请搜索字段内容"
-        @on-change="changeValue($event, 4)"
-        multiple
-      >
-        <h-select-block @on-scroll="scrollFn" :data="selectblock"></h-select-block>
-      </h-simple-select> -->
     </template>
     <template v-else-if="type == 7">
       <h-input
@@ -130,7 +118,7 @@
         @input="changeValue($event, 1)"
       ></h-input>
     </template>
-    <template v-if="type == 8">
+    <template v-if="type == 8 || type == 9">
       <!-- <span>数值范围：</span> -->
         <h-input
           type='int'

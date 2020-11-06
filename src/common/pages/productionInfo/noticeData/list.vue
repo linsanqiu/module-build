@@ -218,6 +218,21 @@
             </dd>
           </dl>
         </li>
+        <li class="row0"></li>
+        <li class="row2">
+          <dl>
+            <dt>公告ID：</dt>
+            <dd>
+              <h-input
+                placeholder="请输入公告ID"
+                v-model.trim="searchData.anncId"
+                @on-enter="onChangeInputEnter(`anncId`)"
+                icon="android-close"
+                @on-click="shitClearableClick(`anncId`)"
+              ></h-input>
+            </dd>
+          </dl>
+        </li>
         <li class="search-wrapper-but">
           <h-button type="primary" data-ref="init-btn" @click="handleSearch">查询</h-button>
           <h-button
@@ -245,6 +260,7 @@
         :maxHeight="maxTableHeight"
         size="small"
         stripe
+        rowSelect
         :columns="commonTableCols"
         @on-sort-change="handleSortFn"
         @on-selection-change="selectChange"
@@ -319,6 +335,7 @@ export default {
         mediaSourceList: [],
         anncTypeList: [],
         bizTypeList: [],
+        anncId: '',
       },
       loadingText: "加载中",
       loadingSearchLabel: false,
@@ -375,6 +392,13 @@ export default {
             }
             return h("div", handleStatusData);
           },
+        },
+        {
+          key: "anncId",
+          title: "公告ID",
+          width: 200,
+          align: "left",
+          sortable: "custom",
         },
         {
           key: "title",
@@ -703,7 +727,7 @@ export default {
       this.searchData.endTime = values[1];
     },
     getHandleUser() {
-      let url = "/tm/news/handleuserlist?newsType=" + this.searchData.newsType;
+      let url = "/tm/news/getalluers?newsType=" + this.searchData.newsType;
       this.$http
         .get(url)
         .then((res) => {
@@ -930,16 +954,12 @@ export default {
         .get(operateUrl)
         .then((res) => {
           let data = res.data ? res.data : {};
-          if (data.status == this.$api.SUCCESS) {
-            if (data.body.resultCode == 1) {
-              this.$hMessage.info({
-                content: tip + "成功",
-                duration: 3,
-              });
-              this.handleSearch();
-            } else {
-              this.$hMessage.error({ content: data.body.resultMsg });
-            }
+          if (data.status === this.$api.SUCCESS) {
+            this.$hMessage.info({
+              content: tip + "成功",
+              duration: 3,
+            });
+            this.handleSearch();
           } else {
             this.$hMessage.error({
               content: data.msg,
@@ -955,16 +975,12 @@ export default {
         .post(url, taskId)
         .then((res) => {
           let data = res.data ? res.data : {};
-          if (data.status == this.$api.SUCCESS) {
-            if (data.body.resultCode == 1) {
-              this.$hMessage.info({
-                content: "删除成功",
-                duration: 3,
-              });
-              this.handleSearch();
-            } else {
-              this.$hMessage.error({ content: data.body.resultMsg });
-            }
+          if (data.status === this.$api.SUCCESS) {
+            this.$hMessage.info({
+              content: "删除成功",
+              duration: 3,
+            });
+            this.handleSearch();
           } else {
             this.$hMessage.error({
               content: data.msg,

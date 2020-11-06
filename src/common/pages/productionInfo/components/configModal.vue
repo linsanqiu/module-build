@@ -6,6 +6,7 @@
     class-name="vertical-center-modal"
     width="800"
     height='600'
+    :mask-closable='false'
   >
     <div class="file-form">
       <h-form
@@ -33,19 +34,23 @@
         <h-form-item label="字段编码：" prop="fieldCode">
           <h-input v-model.trim="form.fieldCode" placeholder="请输入编码" :disabled='!isRuleAdd'></h-input>
         </h-form-item>
-        <h-form-item label="业务类型：" prop="bizType">
+        <h-form-item label="业务类型：" prop="bizTypes">
           <Select
-            v-model="form.bizType"
+            :disabled="bizTypeDisabled"
+            v-model="form.bizTypes"
             placeholder="请配置业务类型"
-            :clearable="false"
+            multiple
+            isCheckall
+            filterable
+            multClearable
             @on-change='changeBizType'
-            :disabled='!isRuleAdd'
           >
             <Option
               v-for="(option, index) in bizTypeList"
               :value="option.entryValue"
               :key="index"
-            >{{ option.entryName }}</Option>
+            >{{ option.entryName }}
+            </Option>
           </Select>
         </h-form-item>
         <h-form-item label="业务属性：" prop="bizGroupCode">
@@ -60,7 +65,8 @@
               v-for="(option, index) in groupList"
               :value="option.bizGroupCode"
               :key="index"
-            >{{ option.bizGroupName }}</Option>
+            >{{ option.bizGroupName }}
+            </Option>
           </Select>
         </h-form-item>
 
@@ -76,7 +82,8 @@
               v-for="(option, index) in fieldTypeList"
               :value="option.entryOrder"
               :key="index"
-            >{{ option.entryName }}</Option>
+            >{{ option.entryName }}
+            </Option>
           </Select>
         </h-form-item>
         <h-form-item
@@ -100,7 +107,8 @@
               v-for="(item, key) in SearchDict"
               :value="item.entryValue"
               :key="key"
-            >{{ item.entryName }}</Option>
+            >{{ item.entryName }}
+            </Option>
           </Select>
         </h-form-item>
         <h-form-item label="字段描述：" prop="fieldDesc">
@@ -112,7 +120,8 @@
           prop="length"
           :rules="{ required: form.fieldType != 5 || form.fieldType != 6 ? true : false,validator: validateLength, trigger:'change'}"
         >
-          <h-input v-model="form.length" placeholder="请输入字段长度" @on-keyup="inputChange"  :disabled='detailsConfigType'></h-input>
+          <h-input v-model="form.length" placeholder="请输入字段长度" @on-keyup="inputChange"
+                   :disabled='detailsConfigType'></h-input>
         </h-form-item>
         <h-form-item label="是否必填：">
           <RadioGroup v-model="form.required">
@@ -125,9 +134,10 @@
           </RadioGroup>
         </h-form-item>
         <h-form-item label="分组类型：">
-          <RadioGroup v-model="form.fieldGroupType" >
-            <Radio v-for='(item, index) in fieldGroupTypeList' :key='index' :label="parseInt(item.entryValue)" :disabled='true'>
-              <span>{{item.entryName}}</span>
+          <RadioGroup v-model="form.bizGroupType">
+            <Radio v-for='(item, index) in bizGroupTypeList' :key='index' :label="parseInt(item.entryValue)"
+                   :disabled='true'>
+              <span>{{ item.entryName }}</span>
             </Radio>
           </RadioGroup>
         </h-form-item>
@@ -143,7 +153,8 @@
               <div slot="deleteBtn" @click="deleteRule(index)" class="deleteBtn">删除</div>
             </ReplaceRules>
           </div>
-          <div v-if='detailsConfigType && form.repRules && form.repRules.length == 0' style="line-height:30px">无法修改</div>
+          <div v-if='detailsConfigType && form.repRules && form.repRules.length == 0' style="line-height:30px">无法修改
+          </div>
           <h-button type="info" style="width:100%;" @on-click="addRule" v-if='!detailsConfigType'>+</h-button>
         </dd>
       </dl>
@@ -167,29 +178,31 @@
 <script>
 import Verification from "./verification";
 import ReplaceRules from "./replaceRules";
-import { copyDeep } from '@/filters/index'
-import { getTempGroups } from '../api/apiManager'
+import {copyDeep} from '@/filters/index'
+import {getTempGroups} from '../api/apiManager'
+
 export default {
-  components: { Verification, ReplaceRules },
+  components: {Verification, ReplaceRules},
   props: {
     value: Boolean,
+    bizTypeDisabled: Boolean,
     formValue: Object,
     attrList: Array,
+    groupList: Array,
     bizTypeList: Array,
     fieldTypeList: Array,
     DictItem: Object,
     SearchDict: Array,
     detailsConfigType: Boolean,
     isRuleAdd: Boolean,
-    fieldGroupTypeList: Array,
+    bizGroupTypeList: Array,
   },
-  computed:{
-  },
+  computed: {},
   data() {
     return {
       modalValue: false,
       modulesRule: {
-        fieldCode: [{ required: true, message: "请输入", trigger: "change" }],
+        fieldCode: [{required: true, message: "请输入", trigger: "change"}],
         fieldName: [
           {
             required: true,
@@ -198,14 +211,14 @@ export default {
             trigger: "change",
           },
         ],
-        bizType: [{ required: true, message: "请选择", trigger: "change" }],
-        bizGroupCode: [{ required: true, message: "请选择", trigger: "change" }],
-        length: [{ required: true, message: "请输入", trigger: "change" }],
-        fieldDesc: [{ required: false, message: "请输入", trigger: "change" }],
+        bizTypes: [{required: true, message: "请选择", trigger: "change", type: 'array'}],
+        bizGroupCode: [{required: true, message: "请选择", trigger: "change"}],
+        length: [{required: true, message: "请输入", trigger: "change"}],
+        fieldDesc: [{required: false, message: "请输入", trigger: "change"}],
       },
       form: {
         bizGroupCode: '',
-        bizType: "",
+        bizTypes: [],
         id: "", //字段id
         fieldName: "", //字段名
         fieldCode: "", //字段编码
@@ -215,9 +228,9 @@ export default {
         length: "", //字段长度
         remark: "", //备注
         defaultValue: "", //枚举类型,
-        fieldGroupType: 1,
+        bizGroupType: 1,
       },
-      groupList: [],
+      // groupList: [],
       rules: [],
       formValueChange: false,
       id: '',
@@ -225,18 +238,20 @@ export default {
   },
   watch: {
     formValue(value) {
-      if (value.fieldCode){
+      if (value.fieldCode) {
         this.formValueChange = true
       }
       this.form = value;
       this.id = value.id
-      this.$nextTick(()=>{
-        this.$refs['detailForm'] && this.$refs['detailForm'].resetValidate()
+      setTimeout(() => {
+        this.$nextTick(() => {
+          this.resetFields()
+        }, 0)
       })
     },
     value(value) {
       this.modalValue = value;
-    },
+    }
   },
   methods: {
     onCloseFileMsgBox() {
@@ -262,13 +277,13 @@ export default {
         callback();
       }
     },
-    validateDefaultValue(rule, value, callback){
-			if ((this.form.fieldType == 5 || this.form.fieldType == 6) && value == '') {
-				callback(new Error('请选择'));
-			} else {
-				callback();
-			}
-		},
+    validateDefaultValue(rule, value, callback) {
+      if ((this.form.fieldType == 5 || this.form.fieldType == 6) && value == '') {
+        callback(new Error('请选择'));
+      } else {
+        callback();
+      }
+    },
     validateFieldName(rule, value, callback) {
       if (value == "") {
         callback(new Error("请输入"));
@@ -312,76 +327,74 @@ export default {
         },
       });
     },
-    addRule(){
-			this.rules.push(
-				{
-					after:'',
-					before: '',
-				}
-			)
-		},
+    addRule() {
+      this.rules.push(
+        {
+          after: '',
+          before: '',
+        }
+      )
+    },
     onOk() {
       this.$refs['detailForm'].validate((valid) => {
-				if (valid) {
+        if (valid) {
           let obj = copyDeep(this.form)
           obj.id = this.id
-          if (this.isRuleAdd){
+          if (this.isRuleAdd) {
             this.$emit("addAttr", obj);
-          }else{
+          } else {
             this.$emit("changeAttr", obj);
           }
           this.$refs['detailForm'] && this.$refs['detailForm'].resetValidate()
-					// let obj = copyDeep(this.form)
-					// if(this.activeItem == 'row'){
-					// 	this.rowList[this.activeInex] = obj;
-					// }else{
-					// 	this.colList[this.activeInex] = obj;
-					// }
-					// this.changeValue();
-					// this.onCloseFileMsgBox();
-				}
-			})
+          // let obj = copyDeep(this.form)
+          // if(this.activeItem == 'row'){
+          // 	this.rowList[this.activeInex] = obj;
+          // }else{
+          // 	this.colList[this.activeInex] = obj;
+          // }
+          // this.changeValue();
+          // this.onCloseFileMsgBox();
+        }
+      })
     },
-    changeBizType(value){
-      if (!value){
+    changeBizType(value) {
+      return;
+      if (!value) {
         return
       }
-      let body = {
-        bizType: value
-      }
-      getTempGroups(body).then(
+      getTempGroups({}).then(
         data => {
           this.groupList = data.bizGroups || []
         }
       )
     },
-    changeBizCode(value){
-      if (this.formValueChange){
+    changeBizCode(value) {
+      if (this.formValueChange) {
         this.formValueChange = false
         return
       }
-      for (let i = 0; i< this.attrList.length; i++){
+      for (let i = 0; i < this.attrList.length; i++) {
         let fieldCode = this.attrList[i].fieldCode
-        if (fieldCode == value){
+        if (fieldCode == value) {
           let form = copyDeep(this.attrList[i])
-          form.bizType = form.bizType.toString()
-          form.fieldId = form.id
-          form.id = this.id
+          // form.bizTypes = form.bizTypes.toString()
+          form.bizTypes = form.bizTypes || []
+          form.fieldId = form.fieldId
           this.form = form
           break
         }
       }
     },
-    bizGroupCodeChange(value){
-      for (let i = 0;i<this.groupList.length;i++){
+    bizGroupCodeChange(value) {
+      for (let i = 0; i < this.groupList.length; i++) {
         let item = this.groupList[i]
-        if (item.bizGroupCode == value){
-          this.form.fieldGroupType = item.fieldGroupType
+        if (item.bizGroupCode == value) {
+          this.form.bizGroupType = item.bizGroupType
           break
         }
       }
     },
-    resetFields(){
+    resetFields() {
       this.$refs['detailForm'] && this.$refs['detailForm'].resetValidate()
     }
 
@@ -393,23 +406,28 @@ export default {
 dl + dl {
   margin-top: 20px;
 }
+
 dt,
 dd {
   display: inline-block;
   vertical-align: top;
 }
+
 dt {
   line-height: 30px;
   width: 100px;
   text-align: right;
 }
+
 dd {
   width: calc(100% - 105px);
 }
+
 .deleteBtn {
   color: #298dff;
   cursor: pointer;
 }
+
 .deleteBtn:hover {
   color: #0067dc;
 }

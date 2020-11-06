@@ -7,7 +7,7 @@ import { pathName, getRequestQuery } from '@/filters';
 import cookie from 'vue-cookie';
 import md5 from 'js-md5';
 
-import Main from '@frame/views/main.vue';
+// import Main from '@frame/views/main.vue';
 import AppMain from '@frame/views/frame/AppMain.vue';
 import AppLayout from '@frame/views/frame/AppLayout.vue';
 import { constantRouterMap } from '@frame/router';

@@ -3,18 +3,18 @@
         <div class="app-layout-top">
             <top-bar :activeTopBarIndex.sync="activeTopBarIndex"></top-bar>
         </div>
-        <div class="app-layout-main">
+        <div class="app-layout-container">
             <!-- 侧边栏 -->
             <side-bar :class="{'hide': !isShowSideBar}"
                       :show.sync="isShowSideBar"
                       :sideBarList="sideBarList"
                       class="app-layout-slide"></side-bar>
             <!-- 中间区域 -->
-            <div class="app-layout-container">
+            <div class="app-layout-content">
                 <!-- 面包屑导航栏 -->
-                <!--                <navbar></navbar>-->
+                <nav-bar class="app-layout-nav"></nav-bar>
                 <!-- 内容 -->
-                <app-main ref="appMain"></app-main>
+                <app-main class="app-layout-main" ref="appMain"></app-main>
                 <!--公告-->
                 <div v-if="isShowNoticeBar"></div>
             </div>
@@ -26,13 +26,15 @@
 import AppMain from './AppMain';
 import TopBar from './TopBar';
 import SideBar from './SideBar';
+import NavBar from './NavBar';
 
 export default {
     name: 'AppLayout',
     components: {
         AppMain,
         TopBar,
-        SideBar
+        SideBar,
+        NavBar
     },
     data() {
         return {
@@ -61,7 +63,7 @@ export default {
     .app-layout-top{
         height: 56px;
     }
-    .app-layout-main{
+    .app-layout-container{
         flex: auto;
         display: flex;
         height: calc(100% - 56px);
@@ -75,10 +77,16 @@ export default {
                 min-width: 0;
             }
         }
-        .app-layout-container{
+        .app-layout-content{
             flex: auto;
             height: 100%;
-            overflow: scroll;
+            .app-layout-nav{
+                height: 33px;
+            }
+            .app-layout-main{
+                height: calc(100% - 33px);
+                overflow: auto;
+            }
         }
     }
 }

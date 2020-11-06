@@ -10,14 +10,15 @@ export function pathName(path) {
 }
 
 export function Tree(id, array, arr = []) {
-    function tree(id, array, arr = []) {
+    return function tree(id, array, arr = []) {
+        id = Number(id);
         const ary = [];
-        if (id != 0) {
+        if (id !== 0) {
             arr.push(id);
         }
         for (let i = 0, len = array.length; i < len; i++) {
-            if (array[i].parentId == id) {
-                if (array[i].type == 1) {
+            if (Number(array[i].parentId) === id) {
+                if (Number(array[i].type) === 1) {
                     array[i].isParent = true;
                 }
                 const parents = [...arr];
@@ -37,10 +38,10 @@ export function Tree(id, array, arr = []) {
                 }
             }
         }
-        return ary.length == 0 ? null : ary;
-    }
+        return ary.length === 0 ? null : ary;
+    };
 
-    return tree(id, array, arr = []);
+    // return tree(id, array, arr = []);
 }
 
 /**
@@ -119,7 +120,7 @@ export function Trim(s) {
 }
 
 export function ArrToString(arr) {
-    if (!Array.isArray(arr) && arr.length == 0) {
+    if (!Array.isArray(arr) && arr.length === 0) {
         return '';
     }
     const str = arr.join();
@@ -146,12 +147,12 @@ export function getRequestQuery(urlStr) {
     } else {
         url = '?' + urlStr.split('?')[1];
     }
-    const theRequest = new Object();
-    if (url.indexOf('?') != -1) {
+    const theRequest = {};
+    if (url.indexOf('?') !== -1) {
         const str = url.substr(1);
-        const strs = str.split('&');
-        for (let i = 0; i < strs.length; i++) {
-            theRequest[strs[i].split('=')[0]] = decodeURI(strs[i].split('=')[1]);
+        const strS = str.split('&');
+        for (let i = 0; i < strS.length; i++) {
+            theRequest[strS[i].split('=')[0]] = decodeURI(strS[i].split('=')[1]);
         }
     }
     return theRequest;

@@ -1,66 +1,66 @@
-import types from './types'
-import DASHBOARD from '@/pages/dashboard'
-import { pathName } from '@/filters'
-import cookie from 'vue-cookie'
-import routers from '@/router/router'
-import http from '@/http'
-import api from '@/constant/api.js'
+import types from './types';
+import DASHBOARD from '@/pages/dashboard';
+import { pathName } from '@/filters';
+import cookie from 'vue-cookie';
+import routers from '@/router/router';
+import http from '@/http';
+import api from '@/constant/api.js';
 const actions = {
 	getRoutesMenus({
 		commit,
 		st
-	},data) {
+	}, data) {
 		return new Promise(resolve => {
-			let accessedRouters = filterRouterByMenus([],data)
-			let commonRouters = [{
+			const accessedRouters = filterRouterByMenus([], data);
+			const commonRouters = [{
 					path: '/error',
 					name: 'error',
-					meta: { needAuth: false, record: false},
+					meta: { needAuth: false, record: false },
 					component: resolve => require(['@/pages/system/error/index'], resolve)
-				},{
+				}, {
 					path: '/403',
 					name: '403',
-					meta: { needAuth: true, record: false},
+					meta: { needAuth: true, record: false },
 					component: resolve => require(['@/pages/system/error/403'], resolve)
-				},{
+				}, {
 					path: '/log',
 					name: 'log',
-					meta: { needAuth: true, record: false},
+					meta: { needAuth: true, record: false },
 					component: resolve => require(['@/pages/system/log/index'], resolve)
-				}]
-			let allRouter = commonRouters.concat(accessedRouters);
-			let route = [
+				}];
+			const allRouter = commonRouters.concat(accessedRouters);
+			const route = [
 				{
 					path: '/dashboard',
 					name: 'dashboard',
 					component: DASHBOARD,
 					children: allRouter
 				},
-				{ path: '*', redirect: { name: 'error' },meta: { needAuth: false, record: false}}
-			]
-			for(let i = 0; i < allRouter.length; i++){
-				let urlName = pathName(allRouter[i].path);
-				if (allRouter[i].meta.button && allRouter[i].meta.button.length > 0) { //按钮权限
-					let button = allRouter[i].meta.button;
-					for(let k = 0; k < button.length; k++ ){
-						commit('SET_ROUTERS_BUTTON', {name:urlName,val:button[k].mark}); //保存按钮权限
+				{ path: '*', redirect: { name: 'error' }, meta: { needAuth: false, record: false } }
+			];
+			for (let i = 0; i < allRouter.length; i++) {
+				const urlName = pathName(allRouter[i].path);
+				if (allRouter[i].meta.button && allRouter[i].meta.button.length > 0) { // 按钮权限
+					const button = allRouter[i].meta.button;
+					for (let k = 0; k < button.length; k++ ) {
+						commit('SET_ROUTERS_BUTTON', { name: urlName, val: button[k].mark }); // 保存按钮权限
 					}
 				}
-				if(allRouter[i].meta.record !== false){
-					commit('SET_ROUTERS_OBJ', {name:urlName,val:allRouter[i].title});//保存路由路径对应的名称，提供topTab使用
+				if (allRouter[i].meta.record !== false) {
+					commit('SET_ROUTERS_OBJ', { name: urlName, val: allRouter[i].title });// 保存路由路径对应的名称，提供topTab使用
 				}
 			}
-			commit('SET_ROUTERS', route);//保存路由
+			commit('SET_ROUTERS', route);// 保存路由
 			resolve();
-		})
+		});
 	},
 	logout({
 		commit,
 		st
-	}){
-		http.get('/tm/logout').then((res)=>{
-			//cookie.delete('JSESSIONID');
-		})
+	}) {
+		http.get('/tm/logout').then((res) => {
+			// cookie.delete('JSESSIONID');
+		});
 		cookie.delete('Key');
 		cookie.delete('userInfo');
 		cookie.delete('userMenu');
@@ -69,266 +69,266 @@ const actions = {
 		commit('SET_LOGIN_STATUS', false);
 		commit('INIT_VUEX');
 	},
-    getAppList({commit},list){	
+    getAppList({ commit }, list) {
 		http.get('/tm/tbmDictList?dictCode=' + 1011).then((res) => {
-			let data = res.data;
-			if (data.status == api.SUCCESS) {
-				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList)); 
-			    commit('GET_APPLIST', data.body.tbmDictList);				 
+			const data = res.data;
+			if (data.status === api.SUCCESS) {
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));
+				commit('GET_APPLIST', data.body.tbmDictList);
 			}
-		});		 
-    },  
-    // getSourceList({commit}){	
+		});
+    },
+    // getSourceList({commit}){
 	// 	http.get('/tm/business/tbmDictList?dictCode=' + 2195).then((res) => {
 	// 		let data = res.data;
 	// 		if (data.status == api.SUCCESS) {
-	// 			let listArr = data.body.tbmDictList;				 
+	// 			let listArr = data.body.tbmDictList;
     //     		const newlist = listArr.map(item => {
 	// 	            return {
 	// 	                value: item.dictEntry,
 	// 	                label: item.entryName
 	// 	            };
-	// 	        });            	 
-	// 		    commit('GET_SOURCELIST', newlist);				 
+	// 	        });
+	// 		    commit('GET_SOURCELIST', newlist);
 	// 		}
-	// 	});		 
-	// }, 
-	getSourceList({commit}){
-		let body = {
+	// 	});
+	// },
+	getSourceList({ commit }) {
+		const body = {
 			current: 1,
 			size: 9999,
 			dicValue: '',
-			dicKey: '',
-		}
+			dicKey: ''
+		};
 		http.post('/tm/business/getDictPage', body).then((res) => {
-			let data = res.data;
-			if (data.status == api.SUCCESS) {
-				let listArr = data.body.resPonsePage.records;
-        		const newlist = listArr.map(item => {
-		            return {
-		                label:item.entryName.toString(),
-						value:item.dictEntry.toString()
-		            };
-				});          
-				commit('GET_SOURCELIST', newlist);		
-				commit('ALL_SOURCE_LIST', newlist);				 
+			const data = res.data;
+			if (data.status === api.SUCCESS) {
+				const listArr = data.body.resPonsePage.records;
+				const newlist = listArr.map(item => {
+					return {
+						label: item.entryName.toString(),
+						value: item.dictEntry.toString()
+					};
+				});
+				commit('GET_SOURCELIST', newlist);
+				commit('ALL_SOURCE_LIST', newlist);
 			}
-		});	
+		});
 	},
-    getNewsOpenFlags({commit},list){	
+    getNewsOpenFlags({ commit }, list) {
 		http.get('/tm/tbmDictList?dictCode=' + 1101).then((res) => {
-			let data = res.data;
-			if (data.status == api.SUCCESS) {
-				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList)); 
-			    commit('GET_NEWSOPENFLAGS', data.body.tbmDictList);				 
+			const data = res.data;
+			if (data.status === api.SUCCESS) {
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));
+				commit('GET_NEWSOPENFLAGS', data.body.tbmDictList);
 			}
-		});		 
-	}, 
+		});
+	},
 
-    getProcessingStates({commit},list){	
+    getProcessingStates({ commit }, list) {
 		http.get('/tm/tbmDictList?dictCode=' + 1100).then((res) => {
-			let data = res.data;
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList)); 
-			    commit('GET_PROCESSINGSTATES', data.body.tbmDictList);				 
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));
+				commit('GET_PROCESSINGSTATES', data.body.tbmDictList);
 			}
-		});		 
+		});
     },
-    getInfoLevelList({commit},list){	
+    getInfoLevelList({ commit }, list) {
 		http.get('/tm/tbmDictList?dictCode=' + 1113).then((res) => {
-			let data = res.data;
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList)); 
-			    commit('GET_INFOLEVELLIST', data.body.tbmDictList);				 
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));
+				commit('GET_INFOLEVELLIST', data.body.tbmDictList);
 			}
-		});		 
-    }, 
-    getEmotionList({commit},list){	
+		});
+    },
+    getEmotionList({ commit }, list) {
 		http.get('/tm/tbmDictList?dictCode=' + 1112).then((res) => {
-			let data = res.data;
-			if (data.status == api.SUCCESS) {
-				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList)); 
-			    commit('GET_EMOTIONLIST', data.body.tbmDictList);				 
+			const data = res.data;
+			if (data.status === api.SUCCESS) {
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));
+			    commit('GET_EMOTIONLIST', data.body.tbmDictList);
 			}
-		});		 
-    }, 
-    getRangeList({commit},list){	
-		http.get('/tm/business/gettypelist?code=' +1005000001).then((res) => {
-			let data = res.data;
+		});
+    },
+    getRangeList({ commit }, list) {
+		http.get('/tm/business/gettypelist?code=' + 1005000001).then((res) => {
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				let listArr = data.body.typeList;				 
+				const listArr = data.body.typeList;
         		const newlist = listArr.map(item => {
 		            return {
 		                dictEntry: item.typeCode,
 		                entryName: item.typeName
 		            };
-		        }); 
-				sessionStorage.setItem(list, JSON.stringify(newlist)); 
-			    commit('GET_RANGELIST', newlist);				 
+		        });
+				sessionStorage.setItem(list, JSON.stringify(newlist));
+			    commit('GET_RANGELIST', newlist);
 			}
-		});		 
+		});
     },
-    getAreaList({commit},list){					
+    getAreaList({ commit }, list) {
         http.get('/tm/business/getarealist').then((res) => {
-        	let data = res.data;
-            if(data.status == api.SUCCESS){
-            	let listArr = data.body.areaList;				 
+        	const data = res.data;
+            if (data.status == api.SUCCESS) {
+            	const listArr = data.body.areaList;
         		const newlist = listArr.map(item => {
 		            return {
 		                value: item.areaCode,
 		                label: item.areaName
 		            };
-		        }); 
+		        });
 			   commit('GET_AREALIST', newlist);
             }
-        }); 
+        });
 	},
-    getFormList({commit},list){	
-		http.get('/tm/business/gettypelist?code=' +1005000002).then((res) => {
-			let data = res.data;
+    getFormList({ commit }, list) {
+		http.get('/tm/business/gettypelist?code=' + 1005000002).then((res) => {
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				let listArr = data.body.typeList;				 
+				const listArr = data.body.typeList;
         		const newlist = listArr.map(item => {
 		            return {
 		                dictEntry: item.typeCode,
 		                entryName: item.typeName
 		            };
-		        }); 
-		         sessionStorage.setItem(list, JSON.stringify(newlist)); 
-			    commit('GET_FORMLIST', newlist);				 
+		        });
+		         sessionStorage.setItem(list, JSON.stringify(newlist));
+			    commit('GET_FORMLIST', newlist);
 			}
-		});		 
+		});
 	},
-	getEventTypeList({commit},list){	
+	getEventTypeList({ commit }, list) {
 		http.get('/tm/tbmDictList?dictCode=' + 1133).then((res) => {
-			let data = res.data;
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList)); 
-			    commit('GET_EVENTTYPELIST', data.body.tbmDictList);				 
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));
+			    commit('GET_EVENTTYPELIST', data.body.tbmDictList);
 			}
-		});		 
+		});
     },
-	getSentimentList({commit},list){	
-		http.get('/tm/tbmDictList?dictCode=' +1131).then((res) => {
-			let data = res.data;
+	getSentimentList({ commit }, list) {
+		http.get('/tm/tbmDictList?dictCode=' + 1131).then((res) => {
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));  
-			    commit('GET_SENTIMENTLIST',  data.body.tbmDictList);				 
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));
+			    commit('GET_SENTIMENTLIST', data.body.tbmDictList);
 			}
-		});		 
+		});
 	},
-	getNewsImportanceList({commit},list){	
-		http.get('/tm/tbmDictList?dictCode=' +1132).then((res) => {
-			let data = res.data;
+	getNewsImportanceList({ commit }, list) {
+		http.get('/tm/tbmDictList?dictCode=' + 1132).then((res) => {
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));  
-			    commit('GET_NEWSIMPORTANCELIST', data.body.tbmDictList);				 
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));
+			    commit('GET_NEWSIMPORTANCELIST', data.body.tbmDictList);
 			}
-		});		 
+		});
     },
-    getFinancialList({commit},list){	
-		http.get('/tm/business/gettypelist?code=' +1005000003).then((res) => {
-			let data = res.data;
+    getFinancialList({ commit }, list) {
+		http.get('/tm/business/gettypelist?code=' + 1005000003).then((res) => {
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				let listArr = data.body.typeList;				 
+				const listArr = data.body.typeList;
         		const newlist = listArr.map(item => {
 		            return {
 		                dictEntry: item.typeCode,
 		                entryName: item.typeName
 		            };
-		        }); 
+		        });
                sessionStorage.setItem(list, JSON.stringify(newlist));
-			    commit('GET_FINANCIALLIST', newlist);				 
+			    commit('GET_FINANCIALLIST', newlist);
 			}
-		});		 
+		});
     },
-    getOrgAuthorList({commit},queryStr){	
-		http.get('/tm/business/getauthorlist?name='+queryStr).then((res) => {
-			let data = res.data;
+    getOrgAuthorList({ commit }, queryStr) {
+		http.get('/tm/business/getauthorlist?name=' + queryStr).then((res) => {
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				let listArr = data.body.authorOrgList;				 
+				const listArr = data.body.authorOrgList;
         		const newlist = listArr.map(item => {
 		            return {
 		                value: item.authorOrgCode,
 		                label: item.authorOrgName
 		            };
-		        });             
-			    commit('GET_AUTORORGLIST', newlist);				 
+		        });
+			    commit('GET_AUTORORGLIST', newlist);
 			}
-		});		 
+		});
 	},
-	getDsSourceList({commit},queryStr){	
-		let body = {
+	getDsSourceList({ commit }, queryStr) {
+		const body = {
 			dsSourceName: queryStr,
-			dsSourceType: 0,
-		}
+			dsSourceType: 0
+		};
 		http.post('/tm/business/getDatasource', body).then((res) => {
-			let data = res.data;
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				let listArr = data.body.records;				 
+				const listArr = data.body.records;
         		const newlist = listArr.map(item => {
 		            return {
-		                label:item.dsSourceName.toString(),
-						value:item.dsSourceType.toString()
+		                label: item.dsSourceName.toString(),
+						value: item.dsSourceType.toString()
 		            };
-				});          
-			    commit('GET_DSSOURCELIST', newlist);				 
+				});
+			    commit('GET_DSSOURCELIST', newlist);
 			}
-		});		 
+		});
 	},
-	allSourceList({commit}){
-		commit('ALL_SOURCE_LIST');		
+	allSourceList({ commit }) {
+		commit('ALL_SOURCE_LIST');
 	},
-	getMediaSourceList({commit},queryStr){
-		let body = {
+	getMediaSourceList({ commit }, queryStr) {
+		const body = {
 			current: 1,
 			size: 100,
 			dicValue: queryStr,
-			dicKey: '',
-		}
+			dicKey: ''
+		};
 		http.post('/tm/business/getDictPage', body).then((res) => {
-			let data = res.data;
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				let listArr = data.body.resPonsePage.records;		
+				const listArr = data.body.resPonsePage.records;
         		const newlist = listArr.map(item => {
 		            return {
-		                label:item.entryName.toString(),
-						value:item.dictEntry.toString()
+		                label: item.entryName.toString(),
+						value: item.dictEntry.toString()
 		            };
-				});          
-			    commit('GET_MEDIASOURCELIST', newlist);				 
+				});
+			    commit('GET_MEDIASOURCELIST', newlist);
 			}
-		});		 
+		});
 	},
-    getNewsTypeList({commit},list){	
+    getNewsTypeList({ commit }, list) {
 		http.get('/tm/tbmDictList?dictCode=' + 1117).then((res) => {
-			let data = res.data;
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList)); 
-			    commit('GET_NEWSTYPELIST', data.body.tbmDictList);				 
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));
+			    commit('GET_NEWSTYPELIST', data.body.tbmDictList);
 			}
-		});		 
-    }, 
-    getOpinionListRecommend({commit},list){	
+		});
+    },
+    getOpinionListRecommend({ commit }, list) {
 		http.get('/tm/tbmDictList?dictCode=' + 1122).then((res) => {
-			let data = res.data;
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList)); 
-			    commit('GET_OPINIONLISTRECOMMEND', data.body.tbmDictList);				 
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));
+			    commit('GET_OPINIONLISTRECOMMEND', data.body.tbmDictList);
 			}
-		});		 
+		});
     },
-    getOpinionListComment({commit},list){	
+    getOpinionListComment({ commit }, list) {
 		http.get('/tm/tbmDictList?dictCode=' + 1123).then((res) => {
-			let data = res.data;
+			const data = res.data;
 			if (data.status == api.SUCCESS) {
-				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList)); 
-			    commit('GET_OPINIONLISTCOMMENT', data.body.tbmDictList);				 
+				sessionStorage.setItem(list, JSON.stringify(data.body.tbmDictList));
+			    commit('GET_OPINIONLISTCOMMENT', data.body.tbmDictList);
 			}
-		});		 
-    },
-}	 
-export default actions
+		});
+    }
+};
+export default actions;
 /**
  * 根据后台传回的可用menus,递归过滤异步路由表，返回符合用户角色权限的路由表
  * @param router
@@ -337,25 +337,25 @@ export default actions
 
 function filterRouterByMenus(router, menus) {
 	if (menus && menus.length > 0) {
-		for (let menu of menus) {
-			if(routers[menu.menuCode]){
-				let routerObj = routers[menu.menuCode];
-				if(routerObj.children && routerObj.children.length > 0){
-					for(let i = 0, len = routerObj.children.length; i < len; i++){
-						let name = routerObj.children[i];
-						let o = routers[name];
+		for (const menu of menus) {
+			if (routers[menu.menuCode]) {
+				const routerObj = routers[menu.menuCode];
+				if (routerObj.children && routerObj.children.length > 0) {
+					for (let i = 0, len = routerObj.children.length; i < len; i++) {
+						const name = routerObj.children[i];
+						const o = routers[name];
 						o.menuCode = name;
-						filterRouterByMenus(router, [o])
+						filterRouterByMenus(router, [o]);
 					}
 				}
-				let path = routerObj.path;
-				let url = routerObj.url;
-				let {multiple = false, maxLength = 1} = routerObj
-				if (multiple && maxLength > 1){
-					for (let i = 0;i<maxLength;i++){
-						let routePath =  `${url}/${i}`
-						if (i == 0){
-							routePath = url
+				const path = routerObj.path;
+				const url = routerObj.url;
+				const { multiple = false, maxLength = 1 } = routerObj;
+				if (multiple && maxLength > 1) {
+					for (let i = 0; i < maxLength; i++) {
+						let routePath = `${url}/${i}`;
+						if (i == 0) {
+							routePath = url;
 						}
 						router.push({
 							path: routePath,
@@ -371,10 +371,10 @@ function filterRouterByMenus(router, menus) {
 								index: i
 							},
 							redirect: menu.redirect,
-							component: resolve => require(['@/pages'+ path], resolve)
-						})	
+							component: resolve => require(['@/pages' + path], resolve)
+						});
 					}
-				}else{
+				} else {
 					router.push({
 						path: url,
 						name: menu.menuCode,
@@ -385,18 +385,14 @@ function filterRouterByMenus(router, menus) {
 							button: menu.type == 2 ? menu.children : []
 						},
 						redirect: menu.redirect,
-						component: resolve => require(['@/pages'+ path], resolve)
-					})	
+						component: resolve => require(['@/pages' + path], resolve)
+					});
 				}
 			}
-			if(menu.children && menu.children.length > 0) {
-				filterRouterByMenus(router, menu.children)
+			if (menu.children && menu.children.length > 0) {
+				filterRouterByMenus(router, menu.children);
 			}
 		}
 	}
-  return router
+  return router;
 }
-
-
-
-

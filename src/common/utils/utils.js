@@ -1,5 +1,4 @@
-
-"use strict";
+'use strict';
 
 /**
  *
@@ -16,10 +15,10 @@
  */
 
 const d = new Date();
-let yyyy = d.getFullYear(),
-    mm = d.getMonth() + 1,
-    dd = d.getDate(),
-    ts = d.getTime();
+const yyyy = d.getFullYear();
+const mm = d.getMonth() + 1;
+const dd = d.getDate();
+const ts = d.getTime();
 // today & new Date().toLocaleDateString(); // "12/28/2018"
 const TODAY = `${yyyy}-${mm > 9 ? mm : `0${mm}`}-${dd > 9 ? dd : `0${dd}`}`;
 
@@ -29,28 +28,27 @@ const TODAY_End = `${TODAY} 23:59:59`;
 
 const TODAY_TimeStamp = `${ts}`;
 
-const urlQueryStringToObject = (query = ``) => {
+const urlQueryStringToObject = (query = '') => {
     let result = {};
-    result = window.location.search.slice(1).split(`&`)
-    .map(
-        (item, i) => {
-            let arr = item.split(`=`);
-            let obj = {};
-            obj[arr[0]] = arr[1];
-            return obj;
-        }
-    );
+    result = window.location.search.slice(1).split('&')
+        .map(
+            (item, i) => {
+                const arr = item.split('=');
+                const obj = {};
+                obj[arr[0]] = arr[1];
+                return obj;
+            }
+        );
     return result;
 };
 
 const UQSTO = urlQueryStringToObject;
 
-
 const getPosition = (e) => {
     var x = 0;
     var y = 0;
     if (!e) {
-        let e = window.event;
+        const e = window.event;
     }
     if (e.pageX || e.pageY) {
         x = e.pageX;
@@ -62,91 +60,91 @@ const getPosition = (e) => {
     return {
         x: x,
         y: y
-    }
+    };
 };
 
 const positionMenu = (e, menu) => {
-    let clickCoords = getPosition(e);
+    const clickCoords = getPosition(e);
     // point coords
-    let clickCoordsX = clickCoords.x;
-    let clickCoordsY = clickCoords.y;
+    const clickCoordsX = clickCoords.x;
+    const clickCoordsY = clickCoords.y;
     // menus wh
-    let menuWidth = menu.offsetWidth + 12;
-    let menuHeight = menu.offsetHeight + 12;
+    const menuWidth = menu.offsetWidth + 12;
+    const menuHeight = menu.offsetHeight + 12;
     // let menuWidth = menu.offsetWidth + 4;
     // let menuHeight = menu.offsetHeight + 4;
     // window wh
-    let windowWidth = window.innerWidth;
-    let windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
     // ???
-    if ((windowWidth - clickCoordsX) < menuWidth ) {
-        menu.style.left = windowWidth - menuWidth + "px";
+    if ((windowWidth - clickCoordsX) < menuWidth) {
+        menu.style.left = windowWidth - menuWidth + 'px';
     } else {
-        menu.style.left = clickCoordsX + "px";
+        menu.style.left = clickCoordsX + 'px';
     }
     //
-    if ( (windowHeight - clickCoordsY) < menuHeight ) {
-        menu.style.top = windowHeight - menuHeight + "px";
+    if ((windowHeight - clickCoordsY) < menuHeight) {
+        menu.style.top = windowHeight - menuHeight + 'px';
     } else {
-        menu.style.top = clickCoordsY + "px";
+        menu.style.top = clickCoordsY + 'px';
     }
 };
 
 const globalBindKeyboardShortcuts = () => {
-    let body = document.querySelector(`body`);
-    let bindFlag = body.dataset.bindFlag;
+    const body = document.querySelector('body');
+    const bindFlag = body.dataset.bindFlag;
     let isCtrlPressed = false;
     let isAltPressed = false;
-    if (bindFlag === "true") {
-        console.log(`review, body no need binding again!`);
+    if (bindFlag === 'true') {
+        console.log('review, body no need binding again!');
     } else {
-        console.log(`review, body only need binding once!`);
-        body.dataset.bindFlag = "true";
+        console.log('review, body only need binding once!');
+        body.dataset.bindFlag = 'true';
         // bind once
-        body.addEventListener("keyup", function(e) {
-            let key = e.which || e.keyCode;
-            if(e.which === 17) {
+        body.addEventListener('keyup', function (e) {
+            const key = e.which || e.keyCode;
+            if (e.which === 17) {
                 isCtrlPressed = false;
             }
-            if(e.which === 18) {
+            if (e.which === 18) {
                 isAltPressed = false;
             }
         }, false);
-        body.addEventListener("keydown", function(e) {
-            let key = e.which || e.keyCode;
-            if(e.which === 17) {
+        body.addEventListener('keydown', function (e) {
+            const key = e.which || e.keyCode;
+            if (e.which === 17) {
                 isCtrlPressed = true;
             }
-            if(e.which === 18) {
+            if (e.which === 18) {
                 isAltPressed = true;
             }
-            let isCtrl = isCtrlPressed;
-            let isAlt = isAltPressed;
-            let KSN_Obj = JSON.parse(window.sessionStorage.getItem(`keyboard_shortcuts_names_obj`));
-            let {
+            const isCtrl = isCtrlPressed;
+            const isAlt = isAltPressed;
+            const KSN_Obj = JSON.parse(window.sessionStorage.getItem('keyboard_shortcuts_names_obj'));
+            const {
                 prev_name,
                 next_name
             } = KSN_Obj;
-            let prev_btn = document.querySelector(`[data-btn="${prev_name}"]`);
-            let next_btn = document.querySelector(`[data-btn="${next_name}"]`);
+            const prev_btn = document.querySelector(`[data-btn="${prev_name}"]`);
+            const next_btn = document.querySelector(`[data-btn="${next_name}"]`);
             // let save_btn = document.querySelector(`[data-btn="${save_name}"]`);
             // let passed_btn = document.querySelector(`[data-btn="${passed_name}"]`);
-            if(e.which === 83 && isCtrl && isAlt) {
+            if (e.which === 83 && isCtrl && isAlt) {
                 // if (save_btn) {
                 //     save_btn.click();
                 // }
             }
-            if(e.which === 68 && isCtrl && isAlt) {
+            if (e.which === 68 && isCtrl && isAlt) {
                 if (prev_btn) {
                     prev_btn.click();
                 }
             }
-            if(e.which === 70 && isCtrl && isAlt) {
+            if (e.which === 70 && isCtrl && isAlt) {
                 if (next_btn) {
                     next_btn.click();
                 }
             }
-            if(e.which === 88 && isCtrl && isAlt) {
+            if (e.which === 88 && isCtrl && isAlt) {
                 // if (passed_btn) {
                 //     passed_btn.click();
                 // }
@@ -160,21 +158,19 @@ const globalBindKeyboardShortcuts = () => {
 //     return str.replace(/key/ig , replacer);
 // };
 
-const replaceAll = (str = ``, key = `` , replacer = ``) => {
+const replaceAll = (str = '', key = '', replacer = '') => {
     // regex variable bug
-    let reg = new RegExp(key , `ig`);
-    return str.replace(reg , replacer);
+    const reg = new RegExp(key, 'ig');
+    return str.replace(reg, replacer);
 };
 
-
-const fetchDelete = (url= ``, id="") => {
-    let trueUrl = `${url}/${item}`;
+const fetchDelete = (url = '', id = '') => {
+    const trueUrl = `${url}/${item}`;
     return fetch(trueUrl, {
         method: 'delete'
     })
-    .then(res => res.json());
+        .then(res => res.json());
 };
-
 
 const Utils = {
     fetchDelete,
@@ -185,7 +181,7 @@ const Utils = {
     UQSTO,
     getPosition,
     positionMenu,
-    globalBindKeyboardShortcuts,
+    globalBindKeyboardShortcuts
 };
 
 export default Utils;
@@ -199,6 +195,5 @@ export {
     UQSTO,
     getPosition,
     positionMenu,
-    globalBindKeyboardShortcuts,
+    globalBindKeyboardShortcuts
 };
-

@@ -1,6 +1,6 @@
 import http from '@/http';
-import Vue from 'vue'; //引入vue
-let vm = new Vue();
+import Vue from 'vue'; // 引入vue
+const vm = new Vue();
 export default {
 	/**
 	 * 标签类别
@@ -9,10 +9,10 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	tagType: function (callback) {
-		let url = '/tm/three/tag/category/root';
+		const url = '/tm/three/tag/category/root';
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
@@ -22,10 +22,10 @@ export default {
 	 * @return {[type]} [description]
 	 */
 	handlerStatus: function (callback) {
-		let url = '/tm/enum/taghandle/status';
+		const url = '/tm/enum/taghandle/status';
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
@@ -36,10 +36,10 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	handleResult: function (callback) {
-		let url = '/tm/enum/taghandle/result';
+		const url = '/tm/enum/taghandle/result';
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
@@ -50,10 +50,10 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	refuseReason: function (callback) {
-		let url = '/tm/enum/taghandle/refusereason';
+		const url = '/tm/enum/taghandle/refusereason';
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
@@ -65,10 +65,10 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	handleUser: function (query, callback) {
-		let url = '/tm/user/fuzzysearch?keyword=' + query;
+		const url = '/tm/user/fuzzysearch?keyword=' + query;
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
@@ -80,10 +80,10 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	applyUser: function (row, callback) {
-		let url = '/tm/euser/detail?id=' + row.applyUserId;
+		const url = '/tm/euser/detail?id=' + row.applyUserId;
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
@@ -94,10 +94,10 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	assignrole: function (callback) {
-		let url = '/tm/tag/assignrole';
+		const url = '/tm/tag/assignrole';
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
@@ -108,10 +108,10 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	autodistribute: function (callback) {
-		let url = '/tm/tag/autodistribute';
+		const url = '/tm/tag/autodistribute';
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
@@ -122,10 +122,10 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	userDuty: function (handlerName, callback) {
-		let url = '/tm/tag/getdutyandhistory?handle_user_name=' + handlerName;
+		const url = '/tm/tag/getdutyandhistory?handle_user_name=' + handlerName;
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
@@ -137,12 +137,12 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	submitDistri: function (data, callback) {
-		let url = '/tm/tag/distributetag';
+		const url = '/tm/tag/distributetag';
 		http.post(url, data).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
-		})
+		});
 	},
 	/**
 	 * 标签查询和导出参数
@@ -150,16 +150,16 @@ export default {
 	 * @return {[type]} [description]
 	 */
 	searchParams: function (tagType, handleStatus, handleResult, keyword, handleUser, source, applyTimeBegin, applyTimeEnd, handlerTimeBegin, handlerTimeEnd, tagId) {
-		let urlParams = 'category_id=' + tagType + '&handle_status=' + handleStatus
-			+ '&handle_result=' + handleResult
-			+ '&apply_user_name=' + encodeURIComponent(keyword)
-			+ '&handle_user_id=' + handleUser
-			+ '&source=' + source
-			+ '&apply_start_time=' + applyTimeBegin
-			+ '&apply_end_time=' + applyTimeEnd
-			+ '&handler_start_time=' + handlerTimeBegin
-			+ '&handler_end_time=' + handlerTimeEnd
-			+ '&tag_id=' + encodeURIComponent(tagId);
+		const urlParams = 'category_id=' + tagType + '&handle_status=' + handleStatus +
+			'&handle_result=' + handleResult +
+			'&apply_user_name=' + encodeURIComponent(keyword) +
+			'&handle_user_id=' + handleUser +
+			'&source=' + source +
+			'&apply_start_time=' + applyTimeBegin +
+			'&apply_end_time=' + applyTimeEnd +
+			'&handler_start_time=' + handlerTimeBegin +
+			'&handler_end_time=' + handlerTimeEnd +
+			'&tag_id=' + encodeURIComponent(tagId);
 		return urlParams;
 	},
 	/**
@@ -170,12 +170,12 @@ export default {
 	 * @return {[type]}             [description]
 	 */
 	searchList: function (urlParams, callback) {
-		let url = '/tm/tag/page?' + urlParams;
+		const url = '/tm/tag/page?' + urlParams;
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
-		})
+		});
 	},
 	/**
 	 * 添加标签权限判断
@@ -185,12 +185,12 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	checkhandler: function (row, callback) {
-		let url = '/tm/tag/checkhandler?tagId=' + row.tagId;
+		const url = '/tm/tag/checkhandler?tagId=' + row.tagId;
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
-		})
+		});
 	},
 	/**
 	 * 同义标签
@@ -200,12 +200,12 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	similarity: function (params, callback) {
-		let url = '/tm/three/tag/similarity?' + params;
+		const url = '/tm/three/tag/similarity?' + params;
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
-		})
+		});
 	},
 	/**
 	 * 通知消息
@@ -215,12 +215,12 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	noticeMsg: function (data, callback) {
-		let url = '/tm/tag/noticemessage';
+		const url = '/tm/tag/noticemessage';
 		http.post(url, data).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
-		})
+		});
 	},
 	/**
 	 * 添加提交
@@ -230,12 +230,12 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	submitConfirm: function (data, callback) {
-		let url = '/tm/tag/handle';
+		const url = '/tm/tag/handle';
 		http.post(url, data).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
-		})
+		});
 	},
 	/**
 	 * 拼接id【,】
@@ -246,7 +246,7 @@ export default {
 	joinId: function (aryRows) {
 		let id = '';
 		for (let i = 0; i < aryRows.length; i++) {
-			if (i == 0) {
+			if (i === 0) {
 				id = aryRows[i].tagId;
 			} else {
 				id += ',' + aryRows[i].tagId;
@@ -262,12 +262,12 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	viewArticle: function (row, callback) {
-		let url = '/tm/tag/news/original?tagId=' + row.tagId;
+		const url = '/tm/tag/news/original?tagId=' + row.tagId;
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
-		})
+		});
 	},
 	/**
 	 * 标签注册
@@ -277,12 +277,12 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	register: function (data, callback) {
-		let url = "/tm/three/tag/register";
+		const url = '/tm/three/tag/register';
 		http.post(url, data).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
-		})
+		});
 	},
 	/**
 	 * 客户留言处理状态
@@ -291,117 +291,123 @@ export default {
 	 * @return {[type]}            [description]
 	 */
 	handlerStatusMsg: function (callback) {
-		let url = '/tm/enum/feedback/handlestatus';
+		const url = '/tm/enum/feedback/handlestatus';
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
 	categoryTree: function (parentId, level, callback) {
-		let url = '/tm/three/tag/category/tree?parent_category_id=' + parentId
-			+ '&category_level=' + level;
+		const url = '/tm/three/tag/category/tree?parent_category_id=' + parentId +
+			'&category_level=' + level;
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
 
 	checkTag: function (businessId, tagValue, categoryId, callback) {
-		let url = '/tm/three/tag/check?business_id=' + businessId
-			+ '&tag_value=' + tagValue + '&category_id=' + categoryId;
+		const url = '/tm/three/tag/check?business_id=' + businessId +
+			'&tag_value=' + tagValue + '&category_id=' + categoryId;
 		http.get(url).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
 	getToday: function () {
-		let date = new Date();
-		let year = date.getFullYear();
+		const date = new Date();
+		const year = date.getFullYear();
 		let month = date.getMonth() + 1;
 		let day = date.getDate();
 		if (month < 10) {
-			month = "0" + month;
+			month = '0' + month;
 		}
 		if (day < 10) {
-			day = "0" + day;
+			day = '0' + day;
 		}
-		let TODAY = year + "-" + month + "-" + day;
+		const TODAY = year + '-' + month + '-' + day;
 		return TODAY;
 	},
 	getWeekAgo: function (weekNum) {
-		let now = new Date();
-		let dates = new Date(now.getTime() - weekNum * 7 * 24 * 3600 * 1000);
-		let year = dates.getFullYear();
+		const now = new Date();
+		const dates = new Date(now.getTime() - weekNum * 7 * 24 * 3600 * 1000);
+		const year = dates.getFullYear();
 		let month = dates.getMonth() + 1;
 		let day = dates.getDate();
-		let weekAgo = '';
 		if (month < 10) {
-			month = "0" + month;
+			month = '0' + month;
 		}
 		if (day < 10) {
-			day = "0" + day;
+			day = '0' + day;
 		}
-		return weekAgo = year + "-" + month + "-" + day;
+		return year + '-' + month + '-' + day;
 	},
 	getMonthAgo: function (monthNum) {
-		let dates = new Date();//创建现在的时间	
-		let year = dates.getFullYear();//获取年		
-		let mon = dates.getMonth() + 1;//获取月
-		let day = dates.getDate() - 0;//获取日
-		let MonthAgo = '';
-		let monAgo = mon - monthNum + 1;
+		const dates = new Date();// 创建现在的时间
+		let year = dates.getFullYear();// 获取年
+		let mon = dates.getMonth() + 1;// 获取月
+		let day = dates.getDate();// 获取日
+		const monAgo = mon - monthNum + 1;
 		if (mon <= 0) {
 			year = year - 1;
 			mon = mon + 12;
 		}
-		if (mon < 10) { mon = "0" + mon };
-		if (day < 10) { day = "0" + day };
-		return MonthAgo = year + "-" + monAgo + "-" + day;
+		if (mon < 10) { mon = '0' + mon; }
+		if (day < 10) { day = '0' + day; }
+		return year + '-' + monAgo + '-' + day;
 	},
 	exportDataFn: function (postdata, url, callback) {
 		http.post(url, postdata, { responseType: 'blob' }).then((res) => {
 			callback(res);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
 	commonDownLoad(res, downLoadName) {
 		const content = res.data;
 		// 如果是返回json
-		if (content.type == 'application/json') {
-			const blob = new Blob([content], { type: "application/json" })
-			let reader = new FileReader(); 
-			reader.addEventListener("loadend", function () {
-				let jsonRes = JSON.parse(reader.result); 
-				vm.$hMessage.error(jsonRes.msg)
+		if (String(content.type) === 'application/json') {
+			const blob = new Blob([content], { type: 'application/json' });
+			const reader = new FileReader();
+			reader.addEventListener('loadend', function () {
+				const jsonRes = JSON.parse(reader.result);
+				vm.$hMessage.error(jsonRes.msg);
 			});
-			reader.readAsText(blob, 'utf-8'); 
+			reader.readAsText(blob, 'utf-8');
 		} else {
-			const blob = new Blob([content], { type: "application/vnd.ms-excel" })
-			const fileName = downLoadName + '.xlsx'
+			const blob = new Blob([content], { type: 'application/vnd.ms-excel' });
+			const fileName = downLoadName + '.xlsx';
 			if ('download' in document.createElement('a')) { // 非IE下载
-				const elink = document.createElement('a')
-				elink.download = fileName
-				elink.style.display = 'none'
-				elink.href = URL.createObjectURL(blob)
-				document.body.appendChild(elink)
-				elink.click()
-				URL.revokeObjectURL(elink.href) // 释放URL 对象
-				document.body.removeChild(elink)
+				const elink = document.createElement('a');
+				elink.download = fileName;
+				elink.style.display = 'none';
+				elink.href = URL.createObjectURL(blob);
+				document.body.appendChild(elink);
+				elink.click();
+				URL.revokeObjectURL(elink.href); // 释放URL 对象
+				document.body.removeChild(elink);
 			}
 		}
-
 	},
 	exportDataOfGet: function (url, callback) {
-		http.get(url, { type: "application/vnd.ms-excel" }).then((res) => {
+		http.get(url, { type: 'application/vnd.ms-excel' }).then((res) => {
 			callback(res.data);
-		}).catch(err => {
+		}).catch(() => {
 			callback(null);
 		});
 	},
-}
-
-
+    /**
+     * 获取新消息数量
+     * @param callback
+     */
+    requestNoticeCount: function (callback) {
+        http.get('/tm/notice/back/count?read_status=0').then((res) => {
+            callback(res.data);
+        }).catch(() => {
+            callback(null);
+        });
+    }
+};

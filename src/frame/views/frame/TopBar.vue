@@ -53,14 +53,27 @@
 
 <script>
 import { mapState } from 'vuex';
+import utils from '@/utils/index';
 export default {
     name: 'TopBar',
     data () {
         return {
             environment: 1, // 0正式 1测试
             noticeCount: 0, // 未读消息
+            noticeInterval: null, // 新消息定时器
             activeMenuIndex: 0 // 当前选中的菜单索引
         };
+    },
+    props: {
+        activeTopBarIndex: Number
+    },
+    watch: {
+        activeTopBarIndex (value) {
+            this.activeMenuIndex = value;
+        },
+        activeMenuIndex (value) {
+            this.$emit('update:activeTopBarIndex', value);
+        }
     },
     computed: {
         /**
@@ -81,8 +94,31 @@ export default {
     },
     mounted() {
         this.environment = localStorage.env;
+        if (this.noticeInterval) {
+            clearInterval(this.noticeInterval);
+            this.noticeInterval = null;
+        }
+        this.getNoticeCount();
+        this.noticeInterval = setInterval(() => {
+            this.getNoticeCount();
+        }, 60 * 1000);
+    },
+    beforeDestroy() {
+        if (this.noticeInterval) {
+            clearInterval(this.noticeInterval);
+            this.noticeInterval = null;
+        }
     },
     methods: {
+        // 升级日志页面
+        gotoLog () {
+            this.$router.push({ path: '/log' });
+        },
+        // 消息页面
+        gotoNotice () {
+            this.$router.push({ path: '/notice' });
+        },
+        // 退出登录
         logout (name) {
             if (name === 'Logout') {
                 this.$hMsgBox.confirm({
@@ -95,6 +131,14 @@ export default {
                     onCancel: () => {}
                 });
             }
+        },
+        // 获取消息
+        getNoticeCount () {
+            utils.requestNoticeCount((data) => {
+                if (data && data.status === this.$api.SUCCESS) {
+                    this.noticeCount = data.data ? data.data : 0;
+                }
+            });
         }
     }
 };

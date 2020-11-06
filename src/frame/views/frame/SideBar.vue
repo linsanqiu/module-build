@@ -143,6 +143,7 @@ export default {
         height: 100%;
         background: #fff;
         overflow: hidden;
+        white-space: nowrap;
         /deep/ .side-item{
             dt{
                 height: 40px;
@@ -178,6 +179,10 @@ export default {
                         color: #666;
                         text-indent: 25px;
                         font-size: 12px;
+                        &.active{
+                            color: #fff;
+                            background: #2e71f2;
+                        }
                     }
                 }
             }

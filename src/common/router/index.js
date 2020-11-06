@@ -17,14 +17,8 @@ const wrapperRoute = [
     {
         path: '/',
         component: window.LOCAL_CONFIG.isSingle ? AppMain : AppLayout,
-        redirect: '/main',
-        children: [
-            {
-                path: '/main',
-                name: '首页',
-                component: Main
-            }
-        ]
+        redirect: '/home',
+        children: []
     }
 ];
 const router = new Router({
@@ -69,10 +63,13 @@ router.beforeEach((to, from, next) => {
     if (name) {
         store.commit('SET_SCROLL_TOP', { name: name, val: $('#scroll').scrollTop() });
     }
-    const home = router.getMatchedComponents('/home');
-    if (home.length === 0) {
+    // const home = router.getMatchedComponents('/home');
+    // console.log(home);
+    if (router.options.routes[1].children.length < 1) {
         store.dispatch('getRoutesMenus', userMenu);
-        router.addRoutes(store.state.routers);
+        router.options.routes[1].children.push(...store.state.routers[0].children);
+        router.addRoutes(router.options.routes);
+        console.log(JSON.parse(JSON.stringify(router.options.routes)));
         const t = { ...to };
         t.replace = true;
         next({ ...t });

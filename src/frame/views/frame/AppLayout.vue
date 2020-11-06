@@ -64,16 +64,21 @@ export default {
     .app-layout-main{
         flex: auto;
         display: flex;
+        height: calc(100% - 56px);
         .app-layout-slide{
             width: 200px;
+            min-width: 200px;
             height: 100%;
             transition: all 0.5s;
             &.hide{
                 width: 0;
+                min-width: 0;
             }
         }
         .app-layout-container{
             flex: auto;
+            height: 100%;
+            overflow: scroll;
         }
     }
 }

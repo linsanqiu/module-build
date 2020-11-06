@@ -17,6 +17,7 @@
         <div class="top-bar-item">
             <div class="update-log">
                 <img title="升级日记"
+                     @click="gotoLog"
                      src="@/assets/img/log.png"
                      width="24"
                      height="24"
@@ -25,6 +26,7 @@
             <div class="notice-count">
                 <i v-if="noticeCount">{{ noticeCount > 99 ? '99+' : noticeCount }}</i>
                 <img :title="'未读消息'+ noticeCount +'条'"
+                     @click="gotoNotice"
                      src="@/assets/img/message.png"
                      width="17"
                      height="17"
@@ -99,6 +101,7 @@ export default {
             this.noticeInterval = null;
         }
         this.getNoticeCount();
+        window.getNoticeCount = this.getNoticeCount;
         this.noticeInterval = setInterval(() => {
             this.getNoticeCount();
         }, 60 * 1000);

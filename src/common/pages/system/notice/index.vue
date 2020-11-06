@@ -65,6 +65,7 @@
     </div>
 </template>
 <script>
+import utils from '@/utils/utils';
 export default {
     name: 'Notice',
     data () {
@@ -81,266 +82,265 @@ export default {
             allNoticeList: [],
             allNoticeTime: '',
             allLoading: false
-        }
+        };
     },
     computed: {
 
     },
-    methods:{
-        typeFn( type ){
+    methods: {
+        typeFn( type ) {
             this.type = type;
             this.getNoticeCount();
             this.onTypeGetList();
         },
-        onTypeGetList(){
-            if(this.type== 'unread'){
+        onTypeGetList() {
+            if (this.type == 'unread') {
                 this.getUnreadNotice(true);
-            }else{
+            } else {
                 this.getAllNotice(true);
             }
         },
-        onTyptLoading(status){
-            if(this.type== 'unread'){
+        onTyptLoading(status) {
+            if (this.type == 'unread') {
                 this.unreadLoading = status;
-            }else{
+            } else {
                 this.allLoading = status;
             }
         },
-        got(name , k){
-            if(this.type== 'unread'){
+        got(name, k) {
+            if (this.type == 'unread') {
                 this.unreadLoading = true;
             }
-            let list = [...this[name]];
+            const list = [...this[name]];
             list[k].isRead = 1;
-            let url = '/tm/notice/back/read?noticeId='+ list[k].id;
+            const url = '/tm/notice/back/read?noticeId=' + list[k].id;
             this.$http.get(url).then((res) => {
-                let obj = res.data;
-                if(obj.status == this.$api.SUCCESS){
+                const obj = res.data;
+                if (obj.status == this.$api.SUCCESS) {
                     list[k].isRead = 1;
                     this[name] = [...list];
                     this.getNoticeCount();
-                    if(this.type== 'unread'){
+                    if (this.type == 'unread') {
                         this.getUnreadNotice(true);
                     }
-                }else{
+                } else {
                     this.$hLoading.error(obj.message);
                 }
             })
-            .catch(err=>{
+            .catch(err => {
                 this.$hLoading.error('发生未知错误！');
-            })
+            });
         },
-        getNoticeCount(){
-            if(window.getNoticeCount){
+        getNoticeCount() {
+            if (window.getNoticeCount) {
                 window.getNoticeCount();
             }
         },
-        unreadChangePage(current){
+        unreadChangePage(current) {
             this.unreadPage = current;
             this.getUnreadNotice();
         },
-        allChangePage(current){
+        allChangePage(current) {
             this.allPage = current;
             this.getAllNotice();
         },
-        setAllrRead(time){
+        setAllrRead(time) {
             this.onTyptLoading(true);
-            let url = '/tm/notice/back/read/all?max_time=' + time;
+            const url = '/tm/notice/back/read/all?max_time=' + time;
             this.$http.get(url).then((res) => {
-                let obj = res.data;
-                if(obj.status == this.$api.SUCCESS){
+                const obj = res.data;
+                if (obj.status == this.$api.SUCCESS) {
                     this.onTypeGetList();
                     this.getNoticeCount();
-                }else{
+                } else {
                     this.onTyptLoading(false);
-                    this.$hLoading.error(obj.message)
+                    this.$hLoading.error(obj.message);
                 }
             })
-            .catch(err=>{
+            .catch(err => {
                 this.onTyptLoading(false);
                 this.$hLoading.error('发生未知错误！');
-            })
+            });
         },
-        onAllRemove(status, time, name){
-            let _this = this;
+        onAllRemove(status, time, name) {
+            const _this = this;
             this.$hMsgBox.confirm({
                 title: '温馨提示',
-                content: '确认要'+name +'通知吗？',
+                content: '确认要' + name + '通知吗？',
                 okText: '确定',
                 cancelText: '取消',
-                onOk: function(){
+                onOk: function() {
                     _this.setAllRemove(status, time);
                 },
-                onCancel: function(){
+                onCancel: function() {
                 }
-            })
+            });
         },
-        setAllRemove(status, time){
+        setAllRemove(status, time) {
             this.onTyptLoading(true);
-            let url = '/tm/notice/back/remove/status?read_status='+ status +'&max_time='+ time;
+            const url = '/tm/notice/back/remove/status?read_status=' + status + '&max_time=' + time;
             this.$http.get(url).then((res) => {
-                let obj = res.data;
-                if(obj.status == this.$api.SUCCESS){
+                const obj = res.data;
+                if (obj.status == this.$api.SUCCESS) {
                     this.onTypeGetList();
                     this.getNoticeCount();
-                }else{
+                } else {
                     this.onTyptLoading(false);
-                    this.$hLoading.error(obj.message)
+                    this.$hLoading.error(obj.message);
                 }
             })
-            .catch(err=>{
+            .catch(err => {
                 this.onTyptLoading(false);
                 this.$hLoading.error('发生未知错误！');
-            })
+            });
         },
-        onRemove(id){
-            let _this = this;
+        onRemove(id) {
+            const _this = this;
             this.$hMsgBox.confirm({
                 title: '温馨提示',
                 content: '确认要删除通知吗？',
                 okText: '确定',
                 cancelText: '取消',
-                onOk: function(){
+                onOk: function() {
                     _this.setRemove(id);
                 },
-                onCancel: function(){
+                onCancel: function() {
                 }
-            })
+            });
         },
-        setRemove( id){
-            let url = '/tm/notice/back/remove?noticeId='+ id;
+        setRemove( id) {
+            const url = '/tm/notice/back/remove?noticeId=' + id;
             this.onTyptLoading(true);
             this.$http.get(url).then((res) => {
-                let obj = res.data;
-                if(obj.status == this.$api.SUCCESS){
+                const obj = res.data;
+                if (obj.status == this.$api.SUCCESS) {
                     this.onTypeGetList();
                     this.getNoticeCount();
-                }else{
+                } else {
                     this.onTyptLoading(false);
-                    this.$hLoading.error(obj.message)
+                    this.$hLoading.error(obj.message);
                 }
             })
-            .catch(err=>{
+            .catch(err => {
                 this.onTyptLoading(false);
                 this.$hLoading.error('发生未知错误！');
-            })
+            });
         },
-        getUnreadNotice( constraint = false){
-            if(this.unreadLoading && !constraint )return;
+        getUnreadNotice( constraint = false) {
+            if (this.unreadLoading && !constraint ) return;
             this.unreadLoading = true;
-            let url = '/tm/notice/back/page?read_status=0&pagenum='+ this.unreadPage +'&pagesize='+ this.pageSize;
+            const url = '/tm/notice/back/page?read_status=0&pagenum=' + this.unreadPage + '&pagesize=' + this.pageSize;
             this.$http.get(url).then((res) => {
-                let obj = res.data;
-                if(obj.status == this.$api.SUCCESS){
-                    let data = obj.data;
+                const obj = res.data;
+                if (obj.status == this.$api.SUCCESS) {
+                    const data = obj.data;
                     this.unreadNoticeTime = data.current_time;
                     this.unreadTotal = data.page.total ? data.page.total : 0;
-                    let unreadNoticeList = data.page.list ? data.page.list : [];
-                    if(this.unreadTotal && unreadNoticeList.length == 0){
-                        this.unreadPage = Math.ceil(this.unreadTotal/this.pageSize)
+                    const unreadNoticeList = data.page.list ? data.page.list : [];
+                    if (this.unreadTotal && unreadNoticeList.length == 0) {
+                        this.unreadPage = Math.ceil(this.unreadTotal / this.pageSize);
                         this.getUnreadNotice(true);
                         return;
                     }
                     this.unreadNoticeList = unreadNoticeList;
                     this.autoSkip();
-                }else{
-                    this.$hLoading.error(obj.message)
+                } else {
+                    this.$hLoading.error(obj.message);
                 }
                 this.unreadLoading = false;
             })
-            .catch(err=>{
+            .catch(err => {
                 this.unreadLoading = false;
-            })
+            });
         },
-        getAllNotice(constraint = false){
-            if(this.allLoading && !constraint )return;
+        getAllNotice(constraint = false) {
+            if (this.allLoading && !constraint ) return;
             this.allLoading = true;
-            let url = '/tm/notice/back/page?read_status=-1&pagenum='+ this.allPage +'&pagesize='+ this.pageSize;
+            const url = '/tm/notice/back/page?read_status=-1&pagenum=' + this.allPage + '&pagesize=' + this.pageSize;
             this.$http.get(url).then((res) => {
-                let obj = res.data;
-                if(obj.status == this.$api.SUCCESS){
-                    let data = obj.data;
+                const obj = res.data;
+                if (obj.status == this.$api.SUCCESS) {
+                    const data = obj.data;
                     this.allNoticeTime = data.current_time;
                     this.allTotal = data.page.total ? data.page.total : 0;
-                    let allNoticeList = data.page.list ? data.page.list : [];
-                    if(this.allTotal && allNoticeList.length == 0){
-                        this.allPage = Math.ceil(this.allTotal/this.pageSize)
+                    const allNoticeList = data.page.list ? data.page.list : [];
+                    if (this.allTotal && allNoticeList.length == 0) {
+                        this.allPage = Math.ceil(this.allTotal / this.pageSize);
                         this.getAllNotice(true);
                         return;
                     }
                     this.allNoticeList = allNoticeList;
                     this.autoSkip();
-                }else{
-                    this.$hLoading.error(obj.message)
+                } else {
+                    this.$hLoading.error(obj.message);
                 }
                 this.allLoading = false;
             })
-            .catch(err=>{
+            .catch(err => {
                 this.allLoading = false;
-            })
+            });
         },
-        getNewsListTypeById(id = ``) {
-            let url = `/tm/getNewsInfoById?newsId=${id}`;
+        getNewsListTypeById(id = '') {
+            const url = `/tm/getNewsInfoById?newsId=${id}`;
             this.$http
             .get(url)
             .then(res => res.data)
-            .then((json)=>{
-                let {
+            .then((json) => {
+                const {
                     status,
                     msg,
-                    body,
+                    body
                 } = json;
-                if(status != this.$api.SUCCESS){
+                if (status != this.$api.SUCCESS) {
                     this.$hMessage.error(msg);
-                    return;
                 } else {
-                    let {
-                        dataType: newsListType,
+                    const {
+                        dataType: newsListType
                     } = body;
-                    let flipObj = {
+                    const flipObj = {
                         newsId: id,
-                        newsListType,
+                        newsListType
                     };
-                    let queryObj = {
-                        "type": newsListType,
-                        "desc": "处理",
-                        "uid": id,
-                        "url": "/tm/getNewsInfoById",
+                    const queryObj = {
+                        type: newsListType,
+                        desc: '处理',
+                        uid: id,
+                        url: '/tm/getNewsInfoById'
                     };
-                    window.sessionStorage.setItem("all-in-one_flipObj_handle", JSON.stringify(flipObj));
-                    window.sessionStorage.setItem("all-in-one_route_query_handle", JSON.stringify(queryObj));
-                    let url = `/audit/news/all-in-one/operate-handle#${id}`;
+                    window.sessionStorage.setItem('all-in-one_flipObj_handle', JSON.stringify(flipObj));
+                    window.sessionStorage.setItem('all-in-one_route_query_handle', JSON.stringify(queryObj));
+                    const url = `/audit/news/all-in-one/operate-handle#${id}`;
                     this.$router.push(url);
                 }
-            }).catch(err => console.error(`NewsListType error`, err));
+            }).catch(err => console.error('NewsListType error', err));
         },
         autoSkip() {
-            setTimeout(()=>{
-                let alink = document.querySelectorAll('[data-alink="router"]');
+            setTimeout(() => {
+                const alink = document.querySelectorAll('[data-alink="router"]');
                 if (alink) {
-                for(let i = 0; i < alink.length; i++){
-                    let flag = alink[i].dataset.isBind || false;
+                for (let i = 0; i < alink.length; i++) {
+                    const flag = alink[i].dataset.isBind || false;
                         if (!flag) {
                             alink[i].dataset.isBind = true;
                             alink[i].addEventListener('click', () => {
-                                let url = alink[i].dataset.link;
+                                const url = alink[i].dataset.link;
                                 this.$router.push(url);
-                                //let id = url.slice(38);
-                                //this.getNewsListTypeById(id);
+                                // let id = url.slice(38);
+                                // this.getNewsListTypeById(id);
                             });
                         }
                     }
                 }
-            },100)
+            }, 100);
         }
     },
     mounted() {
         this.typeFn('unread');
     },
-    activated(){
+    activated() {
         this.onTypeGetList();
-    },
-}
+    }
+};
 </script>
 <style type="text/css" scoped>
 .inform{

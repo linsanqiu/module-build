@@ -24,8 +24,8 @@
                             </dd>
                         </template>
                         <template v-else-if="item.type === '2'">
-                            <dt @click="gotoPush(routers[menu.menuCode] ? routers[menu.menuCode].url : '')"
-                                :class="routers[menu.menuCode] && activeMenuPath === routers[menu.menuCode].url ? 'active' : ''">{{ item.title }}</dt>
+                            <dt @click="gotoPush(routers[item.menuCode] ? routers[item.menuCode].url : '')"
+                                :class="routers[item.menuCode] && activeMenuPath === routers[item.menuCode].url ? 'active' : ''">{{ item.title }}</dt>
                         </template>
                     </dl>
                 </template>
